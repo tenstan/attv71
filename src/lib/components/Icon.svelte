@@ -48,12 +48,6 @@
   }
 </script>
 
-<svg class="max-width" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {iconToRender.viewboxWidth} {iconToRender.viewboxHeight}" fill={fill}>
+<svg class="max-w-[10%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {iconToRender.viewboxWidth} {iconToRender.viewboxHeight}" fill={fill}>
   {@html iconToRender.svg}
 </svg>
-
-<style>
-  .max-width {
-    max-width: 10%;
-  }
-</style>
