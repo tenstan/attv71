@@ -19,16 +19,3 @@
     </li>
   {/each}
 </ul>
-
-<style>
-  .sub-menu {
-    position: absolute;
-    right: 0;
-
-    color: var(--attv-yellow);
-    background-color: #000000;
-
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>

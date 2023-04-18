@@ -30,5 +30,5 @@ body {
 	display: flex;
 	flex-direction: column;
 
-  background-color: var(--attv-black);
+  @apply bg-primary
 }

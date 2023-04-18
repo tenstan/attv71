@@ -1,11 +1,2 @@
-<footer>
+<footer class="bg-secondary mt-auto h-[7vh]">
 </footer>
-
-<style>
-  footer {
-    background-color: var(--attv-yellow);
-    min-height: 7vh;
-
-    margin-top: auto;
-  }
-</style>
