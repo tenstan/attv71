@@ -1,6 +1,5 @@
 <script lang="ts">
-  import ArticlePreview from '$lib/components/ArticlePreview.svelte';
-  import type { HomePageData } from './+page.server'
+  import type { HomePageData } from './+page';
 
   export let data: HomePageData;
 </script>
@@ -10,7 +9,18 @@
 </svelte:head>
 
 <div>
-  {#each data.articles as article}
-    <ArticlePreview article={article} />
+  {#each data.posts as post}
+    <article class="prose dark:prose-invert max-w-2xl mx-auto center-images">
+      <h2 class="text-center text-4xl font-bold"><a href={post.slug}>{post.title}</a></h2>
+      <p class="text-center">{post.date}</p>
+      {@html post.html}
+    </article>
   {/each}
 </div>
+
+<style>
+   :global(.center-images img) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
