@@ -4,13 +4,13 @@
   import '../app.css';
 </script>
 
-<Nav />
-
-<main>
-  <slot />
-</main>
-
-<Footer />
+<div class="flex flex-col min-h-screen bg-primary text-white">
+  <Nav />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</div>
 
 <style>
   main {
