@@ -6,14 +6,8 @@
 
 <div class="flex flex-col min-h-screen bg-primary text-white">
   <Nav />
-  <main>
+  <main class="pt-20">
     <slot />
   </main>
   <Footer />
 </div>
-
-<style>
-  main {
-    padding-top: 5rem;
-  }
-</style>
