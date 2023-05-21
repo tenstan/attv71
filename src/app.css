@@ -3,10 +3,18 @@
 @tailwind utilities;
 
 :root {
-	font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-
 	--attv-black: #212120;
 	--attv-yellow: #EDD100;
 
 	--container-width: 75rem;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	font-weight: 400;
+}
+
+p, ol, ul {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
 }
