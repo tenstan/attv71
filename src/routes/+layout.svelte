@@ -2,6 +2,7 @@
   import Footer from '$lib/components/Footer.svelte';
   import Nav from '$lib/components/Nav.svelte';
   import '../app.css';
+  import '../fonts.css';
 </script>
 
 <div class="flex flex-col min-h-screen bg-primary text-white">
