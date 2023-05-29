@@ -4,6 +4,9 @@ export default {
     './src/**/*.{html,js,svelte,ts}'
   ],
   theme: {
+    container: {
+      padding: '10rem',
+    },
     extend: {
       colors: {
         primary: '#212120',

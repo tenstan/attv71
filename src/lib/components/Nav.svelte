@@ -1,5 +1,7 @@
 <script lang="ts">
   import IconDotsHorizontal from 'virtual:icons/mdi/dots-horizontal'
+    import NavItem from './NavItem.svelte';
+    import SubMenuNavItem from './SubMenuNavItem.svelte';
 
   const anchorLinks = [
     { title: 'Home',        href: '/'            },
@@ -18,9 +20,25 @@
     <div class="flex items-center">
       <nav>
         <ul class="flex gap-6 text-xl">
-          {#each anchorLinks as link}
-            <li><a class="hover:underline" href={link.href}>{link.title}</a></li>
-          {/each}
+          <NavItem href='/'>Home</NavItem>
+          <NavItem href='/evemenenten'>Evenementen</NavItem>
+          <SubMenuNavItem href="/over-ons">
+            <svelte:fragment slot="main">Over ons</svelte:fragment>
+            <svelte:fragment slot="sublist">
+              <li class="hover:underline px-4"><a href="/over-ons">Over ons</a></li>
+              <li class="hover:underline pt-4 px-4"><a href="/bestuur">Bestuur</a></li>
+              <li class="hover:underline pt-4 px-4"><a href="/leden-van-verdienste">Leden van verdienste</a></li>
+              <li class="hover:underline pt-4 px-4"><a href="/club-van-25">Club van 25</a></li>
+            </svelte:fragment>
+          </SubMenuNavItem>
+          <SubMenuNavItem href="/competitie">
+            <svelte:fragment slot="main">Competitie</svelte:fragment>
+            <svelte:fragment slot="sublist">
+              <li class="hover:underline px-4"><a href="/competitie">Competitie</a></li>
+              <li class="hover:underline pt-4 px-4"><a href="/standen">Standen</a></li>
+            </svelte:fragment>
+          </SubMenuNavItem>
+          <NavItem href='/contact'>Contact</NavItem>
         </ul>
       </nav>
       <div class="relative px-10 mx-10 border-l border-neutral-900">
