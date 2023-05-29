@@ -1,2 +1,2 @@
-<footer class="bg-secondary mt-auto h-[7vh]">
+<footer class="bg-secondary h-[7vh]">
 </footer>

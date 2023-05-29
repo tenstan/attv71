@@ -7,8 +7,10 @@
 
 <div class="flex flex-col min-h-screen bg-primary text-white">
   <Nav />
-  <main class="pt-20">
+  <main class="pt-20 grow">
     <slot />
   </main>
-  <Footer />
+  <div class="mt-20">
+    <Footer />
+  </div>
 </div>
