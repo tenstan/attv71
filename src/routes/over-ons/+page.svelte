@@ -86,10 +86,6 @@
     margin-top: 1.25em;
   }
 
-  .over-ons > *:last-child {
-    margin-bottom: 6rem;
-  }
-
   .highlighted {
     color: var(--attv-yellow);
   }
