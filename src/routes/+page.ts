@@ -4,9 +4,9 @@ export const prerender = true;
 
 interface Post {
   slug: string;
+  html: string;
   title: string;
   date: string;
-  html: string;
 }
 
 export interface HomePageData {
@@ -18,6 +18,6 @@ export const load: PageLoad = async (): Promise<HomePageData> => {
   const posts = await response.json();
 
   return {
-    posts
+    ...posts
   };
 }
