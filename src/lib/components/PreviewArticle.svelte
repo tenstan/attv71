@@ -17,7 +17,9 @@
     <IconCalendarBlankOutline class="inline-block"/>
     <p>{date.toLocaleDateString('nl-NL')}</p>
   </div>
-  <div class="prose prose-article prose-invert mx-auto">
-    <slot />
+  <div class="mt-16">
+    <ArticleContent>
+      <slot />
+    </ArticleContent>
   </div>
 </article>
