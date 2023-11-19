@@ -27,3 +27,21 @@ module appInsights 'insights.bicep' = {
     location: location
   }
 }
+
+module cosmosDb 'cosmosdb.bicep' = {
+  name: 'cosmosDbDeployment'
+  scope: resourceGroup
+  params: {
+    accountName: 'attv71'
+    location: location
+  }
+}
+
+module cms 'cms.bicep' = {
+  name: 'cmsDeployment'
+  scope: resourceGroup
+  params: {
+    name: 'attv71-cms'
+    location: location
+  }
+}
