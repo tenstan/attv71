@@ -16,8 +16,5 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
   location: location
   properties: {
     serverFarmId: appServicePlan.id
-    siteConfig: {
-      linuxFxVersion: 'node|18-lts'
-    }
   }
 }
