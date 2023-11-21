@@ -1,11 +1,15 @@
-param accountName string
+param name string
 param location string = resourceGroup().location
 
 resource account 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
-  name: 'csms-${accountName}'
+  name: name
   kind: 'MongoDB' // Required for PayloadCMS/CosmosDB interop
   location: location
   properties: {
+    publicNetworkAccess: 'Disabled'
+    consistencyPolicy: {
+      defaultConsistencyLevel: 'Strong'
+    }
     databaseAccountOfferType: 'Standard'
     backupPolicy: {
       type: 'Continuous'
@@ -23,9 +27,6 @@ resource account 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
     capabilities: [
       {
         name: 'EnableServerless'
-      }
-      {
-        name: 'DisableRateLimitingResponses'
       }
       {
         name: 'EnableMongo'
