@@ -5,43 +5,77 @@ param resourceGroupName string = 'attv71'
 @allowed(['westeurope'])
 param location string = 'westeurope'
 
+var resourcePrefix = 'attv71'
+
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: resourceGroupName
   location: location
 }
 
-module vault 'vault.bicep' = {
+module keyVaultDeployment 'vault.bicep' = {
   name: 'keyvaultDeployment'
   scope: resourceGroup
   params: {
-    name: 'attv71'
+    name: '${resourcePrefix}-kv'
     location: location
   }
 }
 
-module appInsights 'insights.bicep' = {
-  name: 'appInsightsDeployment'
-  scope: resourceGroup
-  params: {
-    name: 'attv71'
-    location: location
-  }
-}
-
-module cosmosDb 'cosmosdb.bicep' = {
+module cosmosDbDeployment 'cosmosdb.bicep' = {
   name: 'cosmosDbDeployment'
   scope: resourceGroup
   params: {
-    accountName: 'attv71'
+    name: '${resourcePrefix}-cosmosdb'
     location: location
   }
 }
 
-module cms 'cms.bicep' = {
+module cmsDeployment 'cms.bicep' = {
   name: 'cmsDeployment'
   scope: resourceGroup
   params: {
-    name: 'attv71-cms'
+    name: '${resourcePrefix}-cms'
     location: location
+    keyVaultName: keyVaultDeployment.outputs.keyVaultName
+    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
+  }
+}
+
+module logWorkspaceDeployment 'logworkspace.bicep' = {
+  name: 'logWorkspaceDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}-logworkspace'
+    location: location
+  }
+}
+
+module imageStorageDeployment 'imagestorage.bicep' = {
+  name: 'imageStorageDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}images'
+    location: location
+  }
+}
+
+module webAppSsrDeployment 'webapp-ssr.bicep' = {
+  name: 'webAppSsrDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}-webapp-ssr'
+    keyVaultName: keyVaultDeployment.outputs.keyVaultName
+    location: location
+    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
+  }
+}
+
+module webAppStaticDeployment 'webapp-static.bicep' = {
+  name: 'webAppStaticDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}-webapp-static'
+    location: location
+    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }
 }

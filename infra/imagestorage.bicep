@@ -6,7 +6,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   location: location
   kind: 'StorageV2'
   sku: {
-    name: 'Standard_RAGRS'
+    name: 'Standard_LRS'
   }
   properties: {
     accessTier: 'Hot'
