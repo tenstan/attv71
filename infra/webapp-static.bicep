@@ -1,8 +1,6 @@
 param name string
 param location string = resourceGroup().location
 
-param logWorkspaceId string
-
 resource staticSite 'Microsoft.Web/staticSites@2022-09-01' = {
   name: name
   location: location
@@ -18,12 +16,10 @@ resource staticSite 'Microsoft.Web/staticSites@2022-09-01' = {
   }
 }
 
-resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: name
-  location: location
-  properties: {
-    Application_Type: 'web'
-    WorkspaceResourceId: logWorkspaceId
+module appInsightsDeployment './appinsights.bicep' = {
+  name: 'appInsightsDeployment'
+  params: {
+    name: name
+    location: location
   }
-  kind: 'web'
 }

@@ -1,12 +1,12 @@
 param name string
 param location string = resourceGroup().location
 
-resource account 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
+resource mongoDb 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
   name: name
-  kind: 'MongoDB' // Required for PayloadCMS/CosmosDB interop
+  kind: 'MongoDB'
   location: location
   properties: {
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
     consistencyPolicy: {
       defaultConsistencyLevel: 'Strong'
     }
@@ -34,3 +34,5 @@ resource account 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
     ]
   }
 }
+
+output dbName string = mongoDb.name

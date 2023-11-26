@@ -1,9 +1,8 @@
 targetScope = 'subscription'
 
-param resourceGroupName string = 'attv71'
-
 @allowed(['westeurope'])
 param location string = 'westeurope'
+param resourceGroupName string = 'attv71'
 
 var resourcePrefix = 'attv71'
 
@@ -12,20 +11,20 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   location: location
 }
 
-module keyVaultDeployment 'vault.bicep' = {
-  name: 'keyvaultDeployment'
+module keyVaultDeployment 'keyvault.bicep' = {
+  name: 'keyVaultDeployment'
   scope: resourceGroup
   params: {
-    name: '${resourcePrefix}-kv'
+    name: '${resourcePrefix}-keyvault'
     location: location
   }
 }
 
-module cosmosDbDeployment 'cosmosdb.bicep' = {
-  name: 'cosmosDbDeployment'
+module mongoDbDeployment 'mongodb.bicep' = {
+  name: 'mongoDbDeployment'
   scope: resourceGroup
   params: {
-    name: '${resourcePrefix}-cosmosdb'
+    name: '${resourcePrefix}-mongodb'
     location: location
   }
 }
@@ -36,17 +35,7 @@ module cmsDeployment 'cms.bicep' = {
   params: {
     name: '${resourcePrefix}-cms'
     location: location
-    keyVaultName: keyVaultDeployment.outputs.keyVaultName
-    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
-  }
-}
-
-module logWorkspaceDeployment 'logworkspace.bicep' = {
-  name: 'logWorkspaceDeployment'
-  scope: resourceGroup
-  params: {
-    name: '${resourcePrefix}-logworkspace'
-    location: location
+    mongoDbName: mongoDbDeployment.outputs.dbName
   }
 }
 
@@ -64,9 +53,7 @@ module webAppSsrDeployment 'webapp-ssr.bicep' = {
   scope: resourceGroup
   params: {
     name: '${resourcePrefix}-webapp-ssr'
-    keyVaultName: keyVaultDeployment.outputs.keyVaultName
     location: location
-    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }
 }
 
@@ -76,6 +63,5 @@ module webAppStaticDeployment 'webapp-static.bicep' = {
   params: {
     name: '${resourcePrefix}-webapp-static'
     location: location
-    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }
 }
