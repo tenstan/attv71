@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'infra/**/*.bicep'
+  workflow_dispatch:
 
 jobs:
   deploy:
