@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/club-van-25/+page.svelte";
