@@ -1,15 +1,22 @@
 param name string
 param location string = resourceGroup().location
-param logWorkspaceId string
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: name
   location: location
   properties: {
     Application_Type: 'web'
-    WorkspaceResourceId: logWorkspaceId
+    WorkspaceResourceId: logWorkspace.id
   }
   kind: 'web'
 }
 
-output appInsightsConnectionString string = appInsights.properties.ConnectionString
+resource logWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: 'defaultlogworkspace'
+  location: location
+  properties: {
+    workspaceCapping: {
+      dailyQuotaGb: 2
+    }
+  }
+}
