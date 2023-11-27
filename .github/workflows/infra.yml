@@ -31,4 +31,4 @@ jobs:
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           template: infra/main.bicep
-          resourceGroupName: 'attv71'
+          scope: subscription
