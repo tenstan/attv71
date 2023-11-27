@@ -32,3 +32,4 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           template: infra/main.bicep
           scope: subscription
+          region: westeurope
