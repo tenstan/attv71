@@ -1,4 +1,4 @@
-name: Configure infrastructure
+name: Configure Infrastructure
 
 on:
   push:
