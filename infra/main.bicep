@@ -1,13 +1,11 @@
 targetScope = 'subscription'
 
-@allowed(['westeurope'])
-param location string = 'westeurope'
-param resourceGroupName string = 'attv71'
+param location string = deployment().location
 
 var resourcePrefix = 'attv71'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: resourceGroupName
+  name: 'attv71'
   location: location
 }
 
