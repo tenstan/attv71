@@ -1,12 +1,6 @@
 name: Configure Infrastructure
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'infra/**/*.bicep'
-      - '.github/workflows/infra.yml'
   workflow_dispatch:
 
 permissions:
