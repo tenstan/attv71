@@ -28,3 +28,7 @@ jobs:
           template: infra/main.bicep
           scope: subscription
           region: westeurope
+
+      - name: az logout
+        run: az logout
+        if: always()
