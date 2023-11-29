@@ -3,13 +3,12 @@ name: Build CMS
 on:
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: cms/
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cms/
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
