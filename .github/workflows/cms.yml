@@ -33,3 +33,15 @@ jobs:
             cms/dist/
             cms/build/
           if-no-files-found: error
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: payloadcms
+
+      - name: ls
+        run: ls
