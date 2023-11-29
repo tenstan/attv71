@@ -24,3 +24,12 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: payloadcms
+          path: |
+            cms/dist/
+            cms/build/
+          if-no-files-found: error
