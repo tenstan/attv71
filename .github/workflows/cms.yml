@@ -2,7 +2,11 @@ name: Build CMS
 
 on:
   workflow_dispatch:
-    
+
+defaults:
+  run:
+    working-directory: cms/
+
 jobs:
   build:
     runs-on: ubuntu-latest
