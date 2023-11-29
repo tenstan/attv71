@@ -21,13 +21,19 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
     type: 'SystemAssigned'
   }
   properties: {
-    enabled: false
+    enabled: true
     serverFarmId: appServicePlan.id
     httpsOnly: true
     clientAffinityEnabled: false
     siteConfig: {
       ftpsState: 'Disabled'
       linuxFxVersion: 'Node|18'
+      appSettings: [
+        {
+          name: 'NODE_ENV'
+          value: 'production'
+        }
+      ]
     }
   }
 }
