@@ -1,5 +1,6 @@
 import express from 'express'
 import payload from 'payload'
+import { addKeyVaultSecretsToEnv } from './lib/azure/secrets'
 
 require('dotenv').config()
 const app = express()
@@ -10,6 +11,8 @@ app.get('/', (_, res) => {
 })
 
 const start = async () => {
+  await addKeyVaultSecretsToEnv();
+  
   // Initialize Payload
   await payload.init({
     secret: process.env.PAYLOAD_SECRET,
@@ -18,8 +21,6 @@ const start = async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },
   })
-
-  // Add your own express routes here
 
   app.listen(3000)
 }
