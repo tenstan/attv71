@@ -37,6 +37,10 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           name: 'PAYLOAD_CONFIG_PATH'
           value: 'dist/payload.config.js'
         }
+        {
+          name: 'WEBSITE_RUN_FROM_PACKAGE'
+          value: '1'
+        }
       ]
     }
   }
