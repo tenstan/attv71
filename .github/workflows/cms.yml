@@ -28,6 +28,9 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Prune devDependencies
+        run: npm prune --production
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -35,6 +38,7 @@ jobs:
           path: |
             cms/dist/
             cms/build/
+            cms/node_modules/
           if-no-files-found: error
 
   deploy:
