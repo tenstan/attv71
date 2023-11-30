@@ -46,6 +46,10 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           name: 'KEY_VAULT_NAME'
           value: keyVaultName
         }
+        {
+          name: 'MONGODB_DATABASE_NAME'
+          value: database.properties.resource.id
+        }
       ]
     }
   }
