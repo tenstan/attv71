@@ -24,6 +24,7 @@ module mongoDbDeployment 'mongodb.bicep' = {
   params: {
     name: '${resourcePrefix}-mongodb'
     location: location
+    keyVaultName: keyVaultDeployment.outputs.keyVaultName
   }
 }
 
@@ -34,6 +35,7 @@ module cmsDeployment 'cms.bicep' = {
     name: '${resourcePrefix}-cms'
     location: location
     mongoDbName: mongoDbDeployment.outputs.dbName
+    keyVaultName: keyVaultDeployment.outputs.keyVaultName
   }
 }
 
