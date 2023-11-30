@@ -31,14 +31,14 @@ jobs:
       - name: Prune devDependencies
         run: npm prune --production
 
-      - name: Upload artifact
+      - name: Zip artifacts
+        run: zip -r payloadcms.zip cms/ dist/ node_modules/
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: payloadcms
-          path: |
-            cms/dist/
-            cms/build/
-            cms/node_modules/
+          path: cms/payloadcms.zip
           if-no-files-found: error
 
   deploy:
@@ -63,11 +63,14 @@ jobs:
           azcliversion: 2.30.0
           inlineScript: az webapp config set --resource-group attv71 --name attv71-cms --startup-file "dist/server.js"
 
-      - name: Deploy to Azure
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: attv71-cms
-          package: '.'
+      - name: ls
+        run: ls
+
+      # - name: Deploy to Azure
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: attv71-cms
+      #     package: '.'
 
       - name: az logout
         run: az logout
