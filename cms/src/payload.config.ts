@@ -17,6 +17,6 @@ export default buildConfig({
   collections: [Users],
   plugins: [payloadCloud()],
   db: mongooseAdapter({
-    url: process.env.MONGODB_URI,
+    url: process.env.MONGODB_CONNECTION_STRING,
   }),
 })
