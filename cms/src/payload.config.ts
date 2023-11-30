@@ -1,6 +1,3 @@
-import path from 'path'
-
-import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { slateEditor } from '@payloadcms/richtext-slate'
@@ -15,7 +12,6 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Users],
-  plugins: [payloadCloud()],
   db: mongooseAdapter({
     url: process.env.MONGODB_CONNECTION_STRING,
     connectOptions: {
