@@ -32,7 +32,7 @@ jobs:
         run: npm prune --production
 
       - name: Zip artifacts
-        run: zip -r payloadcms.zip cms/ dist/ node_modules/
+        run: zip -r payloadcms.zip build/ dist/ node_modules/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
@@ -57,20 +57,17 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Azure CLI script file
+      - name: Set App Service startup command
         uses: azure/CLI@v1
         with:
           azcliversion: 2.30.0
           inlineScript: az webapp config set --resource-group attv71 --name attv71-cms --startup-file "dist/server.js"
 
-      - name: ls
-        run: ls
-
-      # - name: Deploy to Azure
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: attv71-cms
-      #     package: '.'
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: attv71-cms
+          package: payloadcms.zip
 
       - name: az logout
         run: az logout
