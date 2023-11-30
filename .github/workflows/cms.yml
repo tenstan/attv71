@@ -32,7 +32,8 @@ jobs:
         run: npm prune --production
 
       - name: Zip artifacts
-        run: zip -r payloadcms.zip build/ dist/ node_modules/
+        run: >-
+          zip -r payloadcms.zip build/ dist/ node_modules/ package*.json
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
