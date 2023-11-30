@@ -3,7 +3,7 @@ import { DefaultAzureCredential } from '@azure/identity';
 
 const keyVaultKeys = [
   'PAYLOAD_SECRET',
-  'MONGODB_URI'
+  'MONGODB_CONNECTION_STRING'
 ] as const;
 
 export const addKeyVaultSecretsToEnv = async () => {
@@ -19,12 +19,11 @@ export const addKeyVaultSecretsToEnv = async () => {
   const keyvaultUrl = "https://" + keyVaultName + ".vault.azure.net";
   const client = new SecretClient(keyvaultUrl, credential);
 
-  const secrets = await Promise.all(keyVaultKeys.map(key => client.getSecret(key)));
+  const secrets = await Promise.all(keyVaultKeys.map(key => client.getSecret(key.replaceAll('_', '-'))));
   
   secrets.forEach(secret => {
-    process.env[secret.name, secret.value];
+    process.env[secret.name.replaceAll('-', '_'), secret.value];
   })
 
   console.log('Finished retrieving key vault secrets.');
 }
-
