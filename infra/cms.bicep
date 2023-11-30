@@ -1,6 +1,7 @@
 param name string
 param location string = resourceGroup().location
 param mongoDbName string
+param keyVaultName string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
@@ -41,6 +42,10 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           name: 'WEBSITE_RUN_FROM_PACKAGE'
           value: '1'
         }
+        {
+          name: 'KEY_VAULT_NAME'
+          value: keyVaultName
+        }
       ]
     }
   }
@@ -56,13 +61,14 @@ module appInsightsDeployment './appinsights.bicep' = {
 
 resource mongoDb 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' existing = {
   name: mongoDbName
+}
 
-  resource database 'mongodbDatabases@2023-09-15' = {
-    name: 'cms'
-    properties: {
-      resource: {
-        id: 'cms'
-      }
+resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2023-09-15' = {
+  name: 'cms'
+  parent: mongoDb
+  properties: {
+    resource: {
+      id: 'cms'
     }
   }
 }
