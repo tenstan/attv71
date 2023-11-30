@@ -78,7 +78,7 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2023-0
 }
 
 resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
-  name: keyVaultName
+  name: 'add'
   parent: keyVault
   properties: {
     accessPolicies: [
