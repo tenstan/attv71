@@ -52,3 +52,4 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
 }
 
 output dbName string = mongoDb.name
+output connectionStringKeyVaultKey string = mongoDbConnectionString.name

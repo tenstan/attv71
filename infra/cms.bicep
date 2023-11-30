@@ -3,6 +3,8 @@ param location string = resourceGroup().location
 param mongoDbName string
 param keyVaultName string
 
+param mongoDbConnectionStringKeyVaultKey string
+
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
   location: location
@@ -49,6 +51,14 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
         {
           name: 'MONGODB_DATABASE_NAME'
           value: database.properties.resource.id
+        }
+        {
+          name: 'PAYLOAD_SECRET'
+          value: '@Microsoft.KeyVault(VaultName=${keyVaultName};SecretName=PAYLOAD-SECRET)'
+        }
+        {
+          name: 'MONGODB_CONNECTION_STRING'
+          value: '@Microsoft.KeyVault(VaultName=${keyVaultName};SecretName=${mongoDbConnectionStringKeyVaultKey})'
         }
       ]
     }

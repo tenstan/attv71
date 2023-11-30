@@ -36,6 +36,7 @@ module cmsDeployment 'cms.bicep' = {
     location: location
     mongoDbName: mongoDbDeployment.outputs.dbName
     keyVaultName: keyVaultDeployment.outputs.keyVaultName
+    mongoDbConnectionStringKeyVaultKey: mongoDbDeployment.outputs.connectionStringKeyVaultKey
   }
 }
 
