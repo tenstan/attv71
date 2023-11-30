@@ -7,6 +7,9 @@ resource mongoDb 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
   location: location
   properties: {
     publicNetworkAccess: 'Disabled'
+    apiProperties: {
+      serverVersion: '4.2'
+    }
     consistencyPolicy: {
       defaultConsistencyLevel: 'Strong'
     }
