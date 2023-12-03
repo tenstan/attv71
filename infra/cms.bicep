@@ -4,6 +4,8 @@ param mongoDbName string
 param keyVaultName string
 param vnetName string
 param vnetIntegrationSubnetName string
+@secure()
+param payloadSecret string
 
 param mongoDbConnectionStringKeyVaultKey string
 
@@ -59,11 +61,11 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'PAYLOAD_SECRET'
-          value: '@Microsoft.KeyVault(VaultName=${keyVaultName};SecretName=PAYLOAD-SECRET)'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${payloadKeyVaultSecret.name})'
         }
         {
           name: 'MONGODB_CONNECTION_STRING'
-          value: '@Microsoft.KeyVault(VaultName=${keyVaultName};SecretName=${mongoDbConnectionStringKeyVaultKey})'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${keyVault::mongoDbConnectionStringSecret.name})'
         }
       ]
     }
@@ -110,8 +112,20 @@ resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-
   }
 }
 
+resource payloadKeyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+  name: 'PAYLOAD-SECRET'
+  parent: keyVault
+  properties: {
+    value: payloadSecret
+  }
+}
+
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
+
+  resource mongoDbConnectionStringSecret 'secrets' existing = {
+    name: mongoDbConnectionStringKeyVaultKey
+  }
 }
 
 resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
