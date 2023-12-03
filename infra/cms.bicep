@@ -2,6 +2,8 @@ param name string
 param location string = resourceGroup().location
 param mongoDbName string
 param keyVaultName string
+param vnetName string
+param vnetIntegrationSubnetName string
 
 param mongoDbConnectionStringKeyVaultKey string
 
@@ -28,7 +30,10 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     clientAffinityEnabled: false
+    virtualNetworkSubnetId: vnet::integrationSubnet.id
     siteConfig: {
+      vnetName: vnet.name
+      http20Enabled: true
       ftpsState: 'Disabled'
       linuxFxVersion: 'Node|18'
       appSettings: [
@@ -107,4 +112,12 @@ resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
+}
+
+resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
+  name: vnetName
+
+  resource integrationSubnet 'subnets' existing = {
+    name: vnetIntegrationSubnetName
+  }  
 }

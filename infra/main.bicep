@@ -15,6 +15,8 @@ module keyVaultDeployment 'keyvault.bicep' = {
   params: {
     name: '${resourcePrefix}-keyvault'
     location: location
+    vnetName: networkDeployment.outputs.vnetName
+    serviceEndpointSubnetName: networkDeployment.outputs.serviceEndpointSubnetName
   }
 }
 
@@ -37,6 +39,8 @@ module cmsDeployment 'cms.bicep' = {
     mongoDbName: mongoDbDeployment.outputs.dbName
     keyVaultName: keyVaultDeployment.outputs.keyVaultName
     mongoDbConnectionStringKeyVaultKey: mongoDbDeployment.outputs.connectionStringKeyVaultKey
+    vnetName: networkDeployment.outputs.vnetName
+    vnetIntegrationSubnetName: networkDeployment.outputs.appServiceIntegrationSubnetName
   }
 }
 
@@ -63,6 +67,15 @@ module webAppStaticDeployment 'webapp-static.bicep' = {
   scope: resourceGroup
   params: {
     name: '${resourcePrefix}-webapp-static'
+    location: location
+  }
+}
+
+module networkDeployment 'network.bicep' = {
+  name: 'networkDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}-vnet'
     location: location
   }
 }
