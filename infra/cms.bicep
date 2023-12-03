@@ -35,6 +35,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
     virtualNetworkSubnetId: vnet::integrationSubnet.id
     siteConfig: {
       vnetName: vnet.name
+      vnetRouteAllEnabled: true
       http20Enabled: true
       ftpsState: 'Disabled'
       linuxFxVersion: 'Node|18'

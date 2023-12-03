@@ -1,13 +1,22 @@
 param name string
 param location string = resourceGroup().location
 param keyVaultName string
+param vnetName string
+param subnetNames string[]
+
+// TODO: Make a separate db account
 
 resource mongoDb 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {
   name: name
   kind: 'MongoDB'
   location: location
   properties: {
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
+    isVirtualNetworkFilterEnabled: true
+    virtualNetworkRules: [for (subnet, index) in subnetNames: {
+      id: vnet::subnets[index].id
+      ignoreMissingVNetServiceEndpoint: false
+    }]
     apiProperties: {
       serverVersion: '4.2'
     }
@@ -49,6 +58,14 @@ resource mongoDbConnectionString 'Microsoft.KeyVault/vaults/secrets@2022-07-01' 
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
+}
+
+resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
+  name: vnetName
+
+  resource subnets 'subnets' existing = [for subnetName in subnetNames: {
+    name: subnetName
+  }]
 }
 
 output dbName string = mongoDb.name
