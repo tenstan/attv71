@@ -12,7 +12,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 resource logWorkspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
-  name: 'defaultlogworkspace'
+  name: 'default-lwsp'
   location: location
   properties: {
     workspaceCapping: {
