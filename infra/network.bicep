@@ -33,6 +33,12 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' = {
                 location
               ]
             }
+            {
+              service: 'Microsoft.AzureCosmosDB'
+              locations: [
+                location
+              ]
+            }
           ]
         }
       }

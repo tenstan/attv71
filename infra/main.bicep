@@ -17,8 +17,8 @@ module keyVaultDeployment 'keyvault.bicep' = {
   params: {
     name: '${resourcePrefix}-keyvault'
     location: location
-    subnetNames: [ networkDeployment.outputs.appServiceIntegrationSubnetName ]
     vnetName: networkDeployment.outputs.vnetName
+    subnetNames: [ networkDeployment.outputs.appServiceIntegrationSubnetName ]
   }
 }
 
@@ -29,6 +29,8 @@ module mongoDbDeployment 'mongodb.bicep' = {
     name: '${resourcePrefix}-mongodb'
     location: location
     keyVaultName: keyVaultDeployment.outputs.keyVaultName
+    vnetName: networkDeployment.outputs.vnetName
+    subnetNames: [ networkDeployment.outputs.appServiceIntegrationSubnetName ]
   }
 }
 
