@@ -17,8 +17,8 @@ module keyVaultDeployment 'keyvault.bicep' = {
   params: {
     name: '${resourcePrefix}-keyvault'
     location: location
+    subnetNames: [ networkDeployment.outputs.appServiceIntegrationSubnetName ]
     vnetName: networkDeployment.outputs.vnetName
-    serviceEndpointSubnetName: networkDeployment.outputs.serviceEndpointSubnetName
   }
 }
 

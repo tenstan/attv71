@@ -133,5 +133,5 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
 
   resource integrationSubnet 'subnets' existing = {
     name: vnetIntegrationSubnetName
-  }  
+  }
 }
