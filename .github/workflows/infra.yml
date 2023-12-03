@@ -28,6 +28,7 @@ jobs:
           template: infra/main.bicep
           scope: subscription
           region: westeurope
+          parameters: payloadSecret=${{ secrets.PAYLOAD_SECRET }}
 
       - name: az logout
         run: az logout

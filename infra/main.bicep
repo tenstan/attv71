@@ -1,6 +1,8 @@
 targetScope = 'subscription'
 
 param location string = deployment().location
+@secure()
+param payloadSecret string
 
 var resourcePrefix = 'attv71'
 
@@ -41,6 +43,7 @@ module cmsDeployment 'cms.bicep' = {
     mongoDbConnectionStringKeyVaultKey: mongoDbDeployment.outputs.connectionStringKeyVaultKey
     vnetName: networkDeployment.outputs.vnetName
     vnetIntegrationSubnetName: networkDeployment.outputs.appServiceIntegrationSubnetName
+    payloadSecret: payloadSecret
   }
 }
 
