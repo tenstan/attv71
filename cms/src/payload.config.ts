@@ -13,9 +13,9 @@ export default buildConfig({
   editor: slateEditor({}),
   collections: [Users],
   db: mongooseAdapter({
-    url: process.env.MONGODB_CONNECTION_STRING,
+    url: process.env.DATABASE_URI,
     connectOptions: {
-      dbName: process.env.MONGODB_DATABASE_NAME
+      dbName: process.env.DATABASE_NAME
     }
   }),
 })

@@ -2,9 +2,7 @@ import { CollectionConfig } from 'payload/types'
 
 const Users: CollectionConfig = {
   slug: 'users',
-  auth: {
-    disableLocalStrategy: true
-  },
+  auth: true,
   admin: {
     useAsTitle: 'email',
   },
