@@ -57,7 +57,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           value: keyVaultName
         }
         {
-          name: 'MONGODB_DATABASE_NAME'
+          name: 'DATABASE_NAME'
           value: database.properties.resource.id
         }
         {
@@ -65,7 +65,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${payloadKeyVaultSecret.name})'
         }
         {
-          name: 'MONGODB_CONNECTION_STRING'
+          name: 'DATABASE_URI'
           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${keyVault::mongoDbConnectionStringSecret.name})'
         }
       ]
