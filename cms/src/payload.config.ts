@@ -1,16 +1,15 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
-import { slateEditor } from '@payloadcms/richtext-slate'
 import { buildConfig } from 'payload/config'
-
 import Users from './collections/Users'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export default buildConfig({
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
   },
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   collections: [Users],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
