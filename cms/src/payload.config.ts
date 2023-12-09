@@ -3,6 +3,9 @@ import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { buildConfig } from 'payload/config'
 import Users from './collections/Users'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
+import NewsPostMedia from './collections/NewsPostMedia'
+import { azureBlobStorageAdapter } from '@payloadcms/plugin-cloud-storage/azure';
 
 export default buildConfig({
   admin: {
@@ -17,4 +20,19 @@ export default buildConfig({
       dbName: process.env.DATABASE_NAME
     }
   }),
+  plugins: [
+    cloudStorage({
+      enabled: process.env.NODE_ENV === 'development',
+      collections: {
+        [NewsPostMedia.slug]: {
+          adapter: azureBlobStorageAdapter({
+            connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
+            containerName: process.env.AZURE_STORAGE_CONTAINER_NAME,
+            allowContainerCreate: true,
+            baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASEURL
+          })
+        }
+      }
+    })
+  ]
 })
