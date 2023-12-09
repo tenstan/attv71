@@ -49,11 +49,11 @@ module cmsDeployment 'cms.bicep' = {
   }
 }
 
-module imageStorageDeployment 'imagestorage.bicep' = {
-  name: 'imageStorageDeployment'
+module imageStorageDeployment 'storage.bicep' = {
+  name: 'storageDeployment'
   scope: resourceGroup
   params: {
-    name: '${resourcePrefix}images'
+    name: '${resourcePrefix}storage'
     location: location
   }
 }
