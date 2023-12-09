@@ -53,10 +53,6 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           value: '1'
         }
         {
-          name: 'KEY_VAULT_NAME'
-          value: keyVaultName
-        }
-        {
           name: 'DATABASE_NAME'
           value: database.properties.resource.id
         }
