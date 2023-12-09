@@ -17,7 +17,7 @@ resource staticSite 'Microsoft.Web/staticSites@2022-09-01' = {
 }
 
 module appInsightsDeployment './appinsights.bicep' = {
-  name: 'appInsightsDeployment'
+  name: 'appInsightsDeployment-webapp-static'
   params: {
     name: name
     location: location
