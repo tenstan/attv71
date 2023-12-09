@@ -32,7 +32,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
 }
 
 module appInsightsDeployment './appinsights.bicep' = {
-  name: 'appInsightsDeployment'
+  name: 'appInsightsDeployment-webapp-ssr'
   params: {
     name: name
     location: location
