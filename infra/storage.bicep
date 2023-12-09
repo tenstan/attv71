@@ -9,6 +9,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     name: 'Standard_LRS'
   }
   properties: {
+    minimumTlsVersion: 'TLS1_2'
     accessTier: 'Hot'
     allowBlobPublicAccess: true
     publicNetworkAccess: 'Enabled'
