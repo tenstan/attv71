@@ -6,8 +6,8 @@ param vnetName string
 param vnetIntegrationSubnetName string
 @secure()
 param payloadSecret string
-
 param mongoDbConnectionStringKeyVaultKey string
+param storageAccountName string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
@@ -117,6 +117,31 @@ resource payloadKeyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = 
   }
 }
 
+resource newsPostMediaStorageContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2023-01-01' = {
+  name: 'news-post-media'
+  parent: storageAccount::blob
+  properties: {
+    publicAccess: 'Blob'
+  }
+}
+
+var newsPostMediaStorageContainerSasToken = storageAccount.listServiceSAS('2023-01-01', {
+  canonicalizedResource: '/blob/${storageAccount.name}/${newsPostMediaStorageContainer.name}'
+  signedExpiry: '2099-01-01T00:00:00Z'
+  signedResource: 'c'
+  signedProtocol: 'https'
+  signedPermission: 'rwdlu'
+}).serviceSasToken
+
+// TODO: Replace with usage of managed identity instead of connection string once Payload plugin supports it
+resource newsPostMediaContainerConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+  name: 'NEWS-POST-MEDIA-CONTAINER-CONNECTION-STRING'
+  parent: keyVault
+  properties: {
+    value: '${storageAccount.properties.primaryEndpoints.blob}${newsPostMediaStorageContainer.name}?${newsPostMediaStorageContainerSasToken}'
+  }
+}
+
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 
@@ -130,5 +155,13 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-05-01' existing = {
 
   resource integrationSubnet 'subnets' existing = {
     name: vnetIntegrationSubnetName
+  }
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+  name: storageAccountName
+
+  resource blob 'blobServices' existing = {
+    name: 'default'
   }
 }
