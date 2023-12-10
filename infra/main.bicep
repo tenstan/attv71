@@ -46,10 +46,11 @@ module cmsDeployment 'cms.bicep' = {
     vnetName: networkDeployment.outputs.vnetName
     vnetIntegrationSubnetName: networkDeployment.outputs.appServiceIntegrationSubnetName
     payloadSecret: payloadSecret
+    storageAccountName: storageDeployment.outputs.storageAccountName
   }
 }
 
-module imageStorageDeployment 'storage.bicep' = {
+module storageDeployment 'storage.bicep' = {
   name: 'storageDeployment'
   scope: resourceGroup
   params: {

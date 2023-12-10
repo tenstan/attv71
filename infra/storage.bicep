@@ -1,7 +1,7 @@
 param name string
 param location string = resourceGroup().location
 
-resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: name
   location: location
   kind: 'StorageV2'
@@ -16,3 +16,5 @@ resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     supportsHttpsTrafficOnly: true
   }
 }
+
+output storageAccountName string = storageAccount.name
