@@ -28,8 +28,8 @@ export default buildConfig({
           adapter: azureBlobStorageAdapter({
             connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
             containerName: process.env.AZURE_STORAGE_CONTAINER_NAME,
-            allowContainerCreate: true,
-            baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASEURL
+            allowContainerCreate: false,
+            baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASE_URL
           })
         }
       }
