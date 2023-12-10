@@ -47,6 +47,7 @@ module cmsDeployment 'cms.bicep' = {
     vnetIntegrationSubnetName: networkDeployment.outputs.appServiceIntegrationSubnetName
     payloadSecret: payloadSecret
     storageAccountName: storageDeployment.outputs.storageAccountName
+    storageAccountConnectionStringKeyVaultKey: storageDeployment.outputs.storageAccountConnectionStringKeyVaultKey
   }
 }
 
@@ -56,6 +57,7 @@ module storageDeployment 'storage.bicep' = {
   params: {
     name: '${resourcePrefix}storage'
     location: location
+    keyVaultName: keyVaultDeployment.outputs.keyVaultName
   }
 }
 

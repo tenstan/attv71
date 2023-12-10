@@ -8,6 +8,7 @@ param vnetIntegrationSubnetName string
 param payloadSecret string
 param mongoDbConnectionStringKeyVaultKey string
 param storageAccountName string
+param storageAccountConnectionStringKeyVaultKey string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   name: name
@@ -63,6 +64,18 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
         {
           name: 'DATABASE_URI'
           value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${keyVault::mongoDbConnectionStringSecret.name})'
+        }
+        {
+          name: 'AZURE_STORAGE_CONNECTION_STRING'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${keyVault::storageAccountConnectionStringSecret.name})'
+        }
+        {
+          name: 'AZURE_STORAGE_ACCOUNT_BASE_URL'
+          value: storageAccount.properties.primaryEndpoints.blob
+        }
+        {
+          name: 'AZURE_STORAGE_CONTAINER_NAME'
+          value: newsPostMediaStorageContainer.name
         }
       ]
     }
@@ -125,28 +138,15 @@ resource newsPostMediaStorageContainer 'Microsoft.Storage/storageAccounts/blobSe
   }
 }
 
-var newsPostMediaStorageContainerSasToken = storageAccount.listServiceSAS('2023-01-01', {
-  canonicalizedResource: '/blob/${storageAccount.name}/${newsPostMediaStorageContainer.name}'
-  signedExpiry: '2099-01-01T00:00:00Z'
-  signedResource: 'c'
-  signedProtocol: 'https'
-  signedPermission: 'rwdlu'
-}).serviceSasToken
-
-// TODO: Replace with usage of managed identity instead of connection string once Payload plugin supports it
-resource newsPostMediaContainerConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
-  name: 'NEWS-POST-MEDIA-CONTAINER-CONNECTION-STRING'
-  parent: keyVault
-  properties: {
-    value: '${storageAccount.properties.primaryEndpoints.blob}${newsPostMediaStorageContainer.name}?${newsPostMediaStorageContainerSasToken}'
-  }
-}
-
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 
   resource mongoDbConnectionStringSecret 'secrets' existing = {
     name: mongoDbConnectionStringKeyVaultKey
+  }
+
+  resource storageAccountConnectionStringSecret 'secrets' existing = {
+    name: storageAccountConnectionStringKeyVaultKey
   }
 }
 
