@@ -6,6 +6,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
 import NewsPostMedia from './collections/NewsPostMedia'
 import { azureBlobStorageAdapter } from '@payloadcms/plugin-cloud-storage/azure';
+import NewsPosts from './collections/NewsPosts'
 
 export default buildConfig({
   admin: {
@@ -13,7 +14,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: lexicalEditor({}),
-  collections: [Users],
+  collections: [Users, NewsPosts, NewsPostMedia],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
     connectOptions: {
