@@ -33,7 +33,7 @@ jobs:
 
       - name: Zip artifacts
         run: >-
-          zip -r payloadcms.zip build/ dist/ node_modules/ package*.json
+          zip --must-match -r payloadcms.zip build/ dist/ node_modules/ package*.json
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
