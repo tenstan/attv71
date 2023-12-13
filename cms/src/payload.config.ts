@@ -23,7 +23,7 @@ export default buildConfig({
   }),
   plugins: [
     cloudStorage({
-      enabled: process.env.NODE_ENV === 'development',
+      enabled: process.env.NODE_ENV !== 'development',
       collections: {
         [NewsPostMedia.slug]: {
           adapter: azureBlobStorageAdapter({
