@@ -14,6 +14,10 @@ app.get('/robots.txt', (_, res) => {
   res.send('User-agent: *\nDisallow: /')
 })
 
+app.get('/health', (_, res) => {
+  res.status(200).json({ status: 'OK' });
+})
+
 const start = async () => {  
   // Initialize Payload
   await payload.init({
