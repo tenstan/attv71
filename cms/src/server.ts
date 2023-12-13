@@ -9,6 +9,11 @@ app.get('/', (_, res) => {
   res.redirect('/admin')
 })
 
+app.get('/robots.txt', (_, res) => {
+  res.type('text/plain')
+  res.send('User-agent: *\nDisallow: /')
+})
+
 const start = async () => {  
   // Initialize Payload
   await payload.init({
