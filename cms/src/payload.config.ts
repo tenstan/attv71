@@ -30,8 +30,9 @@ export default buildConfig({
             connectionString: process.env.AZURE_STORAGE_CONNECTION_STRING,
             containerName: process.env.AZURE_STORAGE_CONTAINER_NAME,
             allowContainerCreate: false,
-            baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASE_URL
-          })
+            baseURL: process.env.AZURE_STORAGE_ACCOUNT_BASE_URL,
+          }),
+          disableLocalStorage: true,
         }
       }
     })
