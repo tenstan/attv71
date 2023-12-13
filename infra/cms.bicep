@@ -77,6 +77,14 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           name: 'AZURE_STORAGE_CONTAINER_NAME'
           value: newsPostMediaStorageContainer.name
         }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: appInsights.properties.ConnectionString
+        }
+        {
+          name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
+          value: '3~'
+        }
       ]
     }
   }
@@ -164,4 +172,8 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing 
   resource blob 'blobServices' existing = {
     name: 'default'
   }
+}
+
+resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: name
 }
