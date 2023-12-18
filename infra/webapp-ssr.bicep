@@ -50,6 +50,10 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           name: 'ApplicationInsightsAgent_EXTENSION_VERSION'
           value: '3~'
         }
+        {
+          name: 'WEBAPP_SSR_ENTRA_CLIENT_SECRET'
+          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${appRegistrationClientKeyVaultSecret.name})'
+        }
       ]
     }
   }
@@ -69,7 +73,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
           enabled: true
           registration: {
             clientId: appRegistrationClientId
-            clientSecretSettingName: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${appRegistrationClientKeyVaultSecret.name})'
+            clientSecretSettingName: 'WEBAPP_SSR_ENTRA_CLIENT_SECRET'
             openIdIssuer: 'https://sts.windows.net/${subscription().tenantId}/v2.0'
           }
         }
