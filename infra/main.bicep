@@ -3,6 +3,9 @@ targetScope = 'subscription'
 param location string = deployment().location
 @secure()
 param payloadSecret string
+param webAppSsrAppId string
+@secure()
+param webAppSsrAppSecret string
 
 var resourcePrefix = 'attv71'
 
@@ -68,6 +71,8 @@ module webAppSsrDeployment 'webapp-ssr.bicep' = {
     name: '${resourcePrefix}-webapp-ssr'
     location: location
     keyVaultName: keyVaultDeployment.outputs.keyVaultName
+    appRegistrationClientId: webAppSsrAppId
+    appRegistrationClientSecret: webAppSsrAppSecret
   }
 }
 
