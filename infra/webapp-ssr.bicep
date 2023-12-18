@@ -103,6 +103,24 @@ resource appRegistrationClientKeyVaultSecret 'Microsoft.KeyVault/vaults/secrets@
   }
 }
 
+resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
+  name: 'add'
+  parent: keyVault
+  properties: {
+    accessPolicies: [
+      {
+        objectId: appService.identity.principalId
+        tenantId: appService.identity.tenantId
+        permissions: {
+          secrets: [
+            'get'
+          ]
+        }
+      }
+    ]
+  }
+}
+
 resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: name
 }
