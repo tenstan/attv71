@@ -1,6 +1,5 @@
 param name string
 param location string = resourceGroup().location
-param keyVaultName string
 
 param appRegistrationClientId string
 @secure()
@@ -52,7 +51,7 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'WEBAPP_SSR_ENTRA_CLIENT_SECRET'
-          value: '@Microsoft.KeyVault(VaultName=${keyVault.name};SecretName=${appRegistrationClientKeyVaultSecret.name})'
+          value: appRegistrationClientSecret
         }
       ]
     }
@@ -95,36 +94,6 @@ module appInsightsDeployment './appinsights.bicep' = {
   }
 }
 
-resource appRegistrationClientKeyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
-  name: 'WEBAPP-SSR-ENTRA-CLIENT-SECRET'
-  parent: keyVault
-  properties: {
-    value: appRegistrationClientSecret
-  }
-}
-
-resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
-  name: 'add'
-  parent: keyVault
-  properties: {
-    accessPolicies: [
-      {
-        objectId: appService.identity.principalId
-        tenantId: appService.identity.tenantId
-        permissions: {
-          secrets: [
-            'get'
-          ]
-        }
-      }
-    ]
-  }
-}
-
 resource appInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: name
-}
-
-resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-  name: keyVaultName
 }

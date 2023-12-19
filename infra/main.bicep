@@ -70,7 +70,6 @@ module webAppSsrDeployment 'webapp-ssr.bicep' = {
   params: {
     name: '${resourcePrefix}-webapp-ssr'
     location: location
-    keyVaultName: keyVaultDeployment.outputs.keyVaultName
     appRegistrationClientId: webAppSsrAppId
     appRegistrationClientSecret: webAppSsrAppSecret
   }
