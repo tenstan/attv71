@@ -62,7 +62,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           azcliversion: 2.30.0
-          inlineScript: az webapp config set --resource-group attv71 --name attv71-cms --startup-file "dist/server.js"
+          inlineScript: az webapp config set --resource-group attv71 --name attv71-cms --startup-file "dist/server.js" --output none
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
