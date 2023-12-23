@@ -1,7 +1,5 @@
 import type { PageLoad } from "./$types";
 
-export const prerender = true;
-
 interface Post {
   slug: string;
   html: string;
