@@ -14,6 +14,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: lexicalEditor({}),
+  indexSortableFields: true,
   collections: [Users, NewsPosts, NewsPostMedia],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
