@@ -1,3 +1,5 @@
+import path from 'path'
+
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { buildConfig } from 'payload/config'
@@ -41,5 +43,8 @@ export default buildConfig({
         }
       }
     })
-  ]
+  ],
+  typescript: {
+    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  },
 })
