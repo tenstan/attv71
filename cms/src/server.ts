@@ -1,5 +1,6 @@
 import express from 'express'
 import payload from 'payload'
+import { throwExpression } from './lib/utils'
 
 require('dotenv').config()
 const app = express()
@@ -21,7 +22,7 @@ app.get('/health', (_, res) => {
 const start = async () => {  
   // Initialize Payload
   await payload.init({
-    secret: process.env.PAYLOAD_SECRET,
+    secret: process.env.PAYLOAD_SECRET ?? throwExpression('PAYLOAD_SECRET was not defined.'),
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)

@@ -19,7 +19,7 @@
     "@payloadcms/bundler-webpack": "^1.0.5",
     "@payloadcms/db-mongodb": "^1.1.1",
     "@payloadcms/plugin-cloud-storage": "^1.1.1",
-    "@payloadcms/richtext-lexical": "^0.4.0",
+    "@payloadcms/richtext-lexical": "^0.4.1",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "payload": "^2.5.0"
