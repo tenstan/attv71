@@ -10,9 +10,11 @@ import NewsPostMedia from './collections/NewsPostMedia'
 import { azureBlobStorageAdapter } from '@payloadcms/plugin-cloud-storage/azure';
 import NewsPosts from './collections/NewsPosts'
 import { throwExpression } from './lib/utils'
-import { getConfiguration } from './lib/configuration'
+import { getCheckedConfiguration, getConfiguration } from './lib/configuration'
 
-const isDevelopmentEnvironment = getConfiguration('NODE_ENV').NODE_ENV === 'development';
+const configuration = getConfiguration('NODE_ENV', 'AZURE_STORAGE_ACCOUNT_BASE_URL', 
+  'AZURE_STORAGE_CONTAINER_NAME', 'AZURE_STORAGE_CONNECTION_STRING', 'DATABASE_URI')
+const isDevelopmentEnvironment = configuration.NODE_ENV === 'development';
 
 export default buildConfig({
   admin: {
@@ -23,7 +25,7 @@ export default buildConfig({
   indexSortableFields: true,
   collections: [Users, NewsPosts, NewsPostMedia],
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI ?? throwExpression('DATABASE_URI was not defined.'),
+    url: configuration.DATABASE_URI || '',
     connectOptions: {
       dbName: process.env.DATABASE_NAME
     }
@@ -34,10 +36,10 @@ export default buildConfig({
       collections: {
         [NewsPostMedia.slug]: {
           adapter: azureBlobStorageAdapter({
-            connectionString: isDevelopmentEnvironment ? '' : getConfiguration('AZURE_STORAGE_CONNECTION_STRING').AZURE_STORAGE_CONNECTION_STRING,
-            containerName: isDevelopmentEnvironment ? '' : getConfiguration('AZURE_STORAGE_CONTAINER_NAME').AZURE_STORAGE_CONTAINER_NAME,
+            connectionString: configuration.AZURE_STORAGE_CONNECTION_STRING || '',
+            containerName: configuration.AZURE_STORAGE_CONTAINER_NAME || '',
             allowContainerCreate: false,
-            baseURL: isDevelopmentEnvironment ? '' : getConfiguration('AZURE_STORAGE_ACCOUNT_BASE_URL').AZURE_STORAGE_ACCOUNT_BASE_URL,
+            baseURL: configuration.AZURE_STORAGE_ACCOUNT_BASE_URL || '',
           }),
           disableLocalStorage: true,
         }
