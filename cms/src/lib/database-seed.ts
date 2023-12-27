@@ -3,50 +3,50 @@ import { getConfiguration } from './configuration';
 
 export const seed = async () => {
   payload.logger.info('Starting database seed...')
-  await seedDefaultAdmin();
+  await seedInitialAdmin();
   payload.logger.info('Finished seeding database.');
 }
 
-const seedDefaultAdmin = async () => {
-  const { DEFAULT_ADMIN_EMAIL, DEFAULT_ADMIN_PASSWORD } = getConfiguration('DEFAULT_ADMIN_EMAIL', 'DEFAULT_ADMIN_PASSWORD');
+const seedInitialAdmin = async () => {
+  const { INIT_ADMIN_EMAIL, INIT_ADMIN_PASSWORD } = getConfiguration('INIT_ADMIN_EMAIL', 'INIT_ADMIN_PASSWORD');
 
-  if (!DEFAULT_ADMIN_EMAIL && !DEFAULT_ADMIN_PASSWORD) {
+  if (!INIT_ADMIN_EMAIL && !INIT_ADMIN_PASSWORD) {
     return;
   }
 
-  if (!DEFAULT_ADMIN_EMAIL) {
-    payload.logger.warn('DEFAULT_ADMIN_EMAIL was set, but there is no associated DEFAULT_ADMIN_PASSWORD. Skipping default admin creation.');
+  if (!INIT_ADMIN_EMAIL) {
+    payload.logger.warn('INIT_ADMIN_EMAIL was set, but there is no associated INIT_ADMIN_PASSWORD. Skipping default admin creation.');
     return;
   }
 
-  if (!DEFAULT_ADMIN_PASSWORD) {
-    payload.logger.warn('DEFAULT_ADMIN_PASSWORD was set, but there is no associated DEFAULT_ADMIN_EMAIL. Skipping default admin creation.');
+  if (!INIT_ADMIN_PASSWORD) {
+    payload.logger.warn('INIT_ADMIN_PASSWORD was set, but there is no associated INIT_ADMIN_EMAIL. Skipping default admin creation.');
     return;
   }
 
-  const findDefaultAdminQuery = await payload.find({
+  const getUsersQuery = await payload.find({
     collection: 'users',
     where: {
       email: {
-        equals: DEFAULT_ADMIN_EMAIL
+        equals: INIT_ADMIN_EMAIL
       }
     }
   })
 
-  const defaultAdminExists = findDefaultAdminQuery.docs[0] !== undefined;
-  if (defaultAdminExists) {
+  const usersAlreadyInitialized = getUsersQuery.docs.length > 0;
+  if (usersAlreadyInitialized) {
     return;
   }
 
-  payload.logger.info('Default admin account was not be found. Seeding database with new account...')
+  payload.logger.info('There are no available user accounts. Seeding database with initial admin...')
 
   payload.create({
     collection: 'users',
     data: {
-      email: DEFAULT_ADMIN_EMAIL,
-      password: DEFAULT_ADMIN_PASSWORD,
+      email: INIT_ADMIN_EMAIL,
+      password: INIT_ADMIN_PASSWORD,
     },
   })
 
-  payload.logger.info('Finished seeding default admin.')
+  payload.logger.info('Finished seeding initial admin.')
 }
