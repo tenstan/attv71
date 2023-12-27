@@ -1,6 +1,7 @@
 import express from 'express'
 import payload from 'payload'
 import { throwExpression } from './lib/utils'
+import { seed } from './lib/database-seed'
 
 require('dotenv').config()
 const app = express()
@@ -25,7 +26,8 @@ const start = async () => {
     secret: process.env.PAYLOAD_SECRET ?? throwExpression('PAYLOAD_SECRET was not defined.'),
     express: app,
     onInit: async () => {
-      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
+      await seed();
+      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
     },
   })
 
