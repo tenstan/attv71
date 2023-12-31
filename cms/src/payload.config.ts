@@ -11,6 +11,7 @@ import { azureBlobStorageAdapter } from '@payloadcms/plugin-cloud-storage/azure'
 import NewsPosts from './collections/NewsPosts'
 import { throwExpression } from './lib/utils'
 import { getCheckedConfiguration, getConfiguration } from './lib/configuration'
+import ApiKeys from './collections/ApiKeys'
 
 const configuration = getConfiguration('NODE_ENV', 'AZURE_STORAGE_ACCOUNT_BASE_URL', 
   'AZURE_STORAGE_CONTAINER_NAME', 'AZURE_STORAGE_CONNECTION_STRING', 'DATABASE_URI')
@@ -23,7 +24,7 @@ export default buildConfig({
   },
   editor: lexicalEditor(),
   indexSortableFields: true,
-  collections: [Users, NewsPosts, NewsPostMedia],
+  collections: [Users, NewsPosts, NewsPostMedia, ApiKeys],
   db: mongooseAdapter({
     url: configuration.DATABASE_URI || '',
     connectOptions: {
