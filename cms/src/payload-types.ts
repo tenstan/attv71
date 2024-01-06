@@ -11,6 +11,7 @@ export interface Config {
     users: User;
     'news-posts': NewsPost;
     'news-post-media': NewsPostMedia;
+    'api-keys': ApiKey;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -18,6 +19,7 @@ export interface Config {
 }
 export interface User {
   id: string;
+  roles?: ('admin' | 'reader')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -62,12 +64,27 @@ export interface NewsPostMedia {
   width?: number | null;
   height?: number | null;
 }
+export interface ApiKey {
+  id: string;
+  name: string;
+  roles?: ('admin' | 'reader')[] | null;
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+}
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'api-keys';
+        value: string | ApiKey;
+      };
   key?: string | null;
   value?:
     | {
