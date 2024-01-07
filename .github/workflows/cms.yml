@@ -1,4 +1,4 @@
-name: Build CMS
+name: Build and deploy CMS
 
 on:
   workflow_dispatch:
