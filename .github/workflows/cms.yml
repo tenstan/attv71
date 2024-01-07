@@ -31,7 +31,7 @@ jobs:
       - name: Check for payload-types.ts changes
         run: |
           npm run generate:types
-          repo_is_dirty=$(git diff-index --quiet HEAD --; echo $?)
+          repo_is_dirty=$(git diff --no-ext-diff --quiet; echo $?)
           if [ "$repo_is_dirty" -ne 0 ]; then
             echo "Repository is dirty after syncing payload-types.ts. Please update the types to the newest possible state by running `npm run generate:types` and committing the new version." >&2
             exit 1
