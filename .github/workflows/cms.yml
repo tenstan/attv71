@@ -33,7 +33,7 @@ jobs:
           npm run generate:types
           repo_is_dirty=$(git diff --no-ext-diff --quiet; echo $?)
           if [ "$repo_is_dirty" -ne 0 ]; then
-            echo "Repository is dirty after syncing payload-types.ts. Please update the types to the newest possible state by running `npm run generate:types` and committing the new version." >&2
+            echo "Repository is dirty after syncing payload-types.ts. Please update the types to the newest possible state by running npm run generate:types and committing the new version." >&2
             exit 1
           fi
 
