@@ -1,5 +1,5 @@
 import { CollectionConfig } from "payload/types";
-import { isCreator, isLoggedIn } from "../access/access-validation";
+import { isCreator, isLoggedIn } from "../access/validation";
 
 const NewsPostMedia: CollectionConfig & { slug: 'news-post-media' } = {
   slug: 'news-post-media',

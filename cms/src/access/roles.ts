@@ -1,5 +1,5 @@
-import { Field, FieldAccess } from "payload/types"
-import { isAdmin, isLoggedIn } from "./access-validation"
+import { Field } from "payload/types"
+import { isAdmin, isLoggedIn } from "./validation"
 
 export const availableRoles = [ 'admin', 'creator' ] as const
 
