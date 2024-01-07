@@ -45,6 +45,9 @@ const seedInitialAdmin = async () => {
     data: {
       email: INIT_ADMIN_EMAIL,
       password: INIT_ADMIN_PASSWORD,
+      roles: [
+        'admin'
+      ]
     },
   })
 

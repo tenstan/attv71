@@ -19,7 +19,7 @@ export interface Config {
 }
 export interface User {
   id: string;
-  roles?: ('admin' | 'reader')[] | null;
+  roles?: ('admin' | 'creator')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -67,7 +67,7 @@ export interface NewsPostMedia {
 export interface ApiKey {
   id: string;
   name: string;
-  roles?: ('admin' | 'reader')[] | null;
+  roles?: ('admin' | 'creator')[] | null;
   updatedAt: string;
   createdAt: string;
   enableAPIKey?: boolean | null;
