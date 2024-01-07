@@ -17,7 +17,7 @@ const NewsPosts: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: [ 'title' ]
+    defaultColumns: [ 'title', 'datePublished' ]
   },
   fields: [
     {
