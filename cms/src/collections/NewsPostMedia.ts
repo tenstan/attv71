@@ -1,7 +1,7 @@
 import { CollectionConfig } from "payload/types";
 import { isCreator, isLoggedIn } from "../access/access-validation";
 
-const NewsPostMedia: CollectionConfig = {
+const NewsPostMedia: CollectionConfig & { slug: 'news-post-media' } = {
   slug: 'news-post-media',
   labels: {
     singular: 'News post media',
