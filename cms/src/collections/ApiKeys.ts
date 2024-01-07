@@ -1,4 +1,7 @@
 import { CollectionConfig } from 'payload/types'
+import { createRoleField } from '../access/roles'
+import { isAdmin } from '../access/access-validation'
+
 
 const ApiKeys: CollectionConfig = {
   slug: 'api-keys',
@@ -11,9 +14,15 @@ const ApiKeys: CollectionConfig = {
     singular: 'API key',
     plural: 'API keys',
   },
+  access: {
+    read: isAdmin,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
+  },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name']
+    defaultColumns: ['name'],
   },
   fields: [
     {
@@ -26,6 +35,7 @@ const ApiKeys: CollectionConfig = {
         description: 'What is this API key for?',
       }
     },
+    createRoleField()
   ],
 }
 
