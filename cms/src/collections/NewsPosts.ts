@@ -1,6 +1,6 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload/types'
-import { isCreator, isLoggedIn } from '../access/access-validation'
+import { isCreator, isLoggedIn } from '../access/validation'
 import { createMediaSectionBlock } from '../blocks/lexical/MediaSection'
 
 const NewsPosts: CollectionConfig = {

@@ -1,6 +1,6 @@
 import { CollectionConfig } from 'payload/types'
 import { createRoleField } from '../access/roles'
-import { isAdmin, isLoggedIn } from '../access/access-validation'
+import { isAdmin, isLoggedIn } from '../access/validation'
 
 const Users: CollectionConfig = {
   slug: 'users',
