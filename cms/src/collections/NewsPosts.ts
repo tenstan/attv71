@@ -1,7 +1,7 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { CollectionConfig } from 'payload/types'
-import NewsPostMediaSection from '../blocks/NewsPostMediaSection'
 import { isCreator, isLoggedIn } from '../access/access-validation'
+import { createMediaSectionBlock } from '../blocks/lexical/MediaSection'
 
 const NewsPosts: CollectionConfig = {
   slug: 'news-posts',
@@ -45,7 +45,7 @@ const NewsPosts: CollectionConfig = {
           ...defaultFeatures,
           BlocksFeature({
             blocks: [
-              NewsPostMediaSection
+              createMediaSectionBlock('news-post-media')
             ]
           })
         ]
