@@ -28,6 +28,15 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Check for payload-types.ts changes
+        run: |
+          npm run generate:types
+          repo_is_dirty=$(git diff-index --quiet HEAD --; echo $?)
+          if [ "$repo_is_dirty" -ne 0 ]; then
+            echo "Repository is dirty after syncing payload-types.ts. Please update the types to the newest possible state." >&2
+            exit 1
+          fi
+
       - name: Prune devDependencies
         run: npm prune --production
 
