@@ -2,6 +2,7 @@ import express from 'express'
 import payload from 'payload'
 import { throwExpression } from './lib/utils'
 import { seed } from './lib/database-seed'
+import { getConfiguration } from './lib/configuration'
 
 require('dotenv').config()
 const app = express()
@@ -21,9 +22,11 @@ app.get('/health', (_, res) => {
 })
 
 const start = async () => {  
+  const configuration = getConfiguration();
+
   // Initialize Payload
   await payload.init({
-    secret: process.env.PAYLOAD_SECRET ?? throwExpression('PAYLOAD_SECRET was not defined.'),
+    secret: configuration.PAYLOAD_SECRET ?? throwExpression('PAYLOAD_SECRET was not defined.'),
     express: app,
     onInit: async () => {
       await seed();
@@ -31,7 +34,7 @@ const start = async () => {
     },
   })
 
-  app.listen(process.env.PORT || 3000)
+  app.listen(configuration.PORT || 3000)
 }
 
 start()

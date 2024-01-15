@@ -1,5 +1,6 @@
 
 import { getServerConfiguration } from '../configuration';
+import type { GetResponse } from './types/http-response';
 import type { NewsPost as CmsNewsPost } from './types/news-posts';
 
 export const getNewsPosts = async (skFetch: typeof fetch): Promise<NewsPost[]> => {
