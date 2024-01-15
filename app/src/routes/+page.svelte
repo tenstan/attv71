@@ -1,7 +1,7 @@
 <script lang="ts">
-  import PreviewArticle from '$lib/components/PreviewArticle.svelte';
-    import PreviewArticleSeparator from '$lib/components/PreviewArticleSeparator.svelte';
-import type { HomePageData } from './+page';
+  import DynamicNewsPost from '$lib/components/DynamicNewsPost.svelte';
+  import PreviewArticleSeparator from '$lib/components/PreviewArticleSeparator.svelte';
+    import type { HomePageData } from './+page.server';
 
   export let data: HomePageData;
 </script>
@@ -16,8 +16,6 @@ import type { HomePageData } from './+page';
       <PreviewArticleSeparator />
     {/if}
 
-    <PreviewArticle title={post.title} href={post.slug} date={new Date(post.date)}>
-      {@html post.html}
-    </PreviewArticle>
+    <DynamicNewsPost newsPost={post}></DynamicNewsPost>
   {/each}
 </div>
