@@ -2,7 +2,6 @@ import { CollectionConfig } from 'payload/types'
 import { createRoleField } from '../access/roles'
 import { isAdmin } from '../access/validation'
 
-
 const ApiKeys: CollectionConfig = {
   slug: 'api-keys',
   auth: {

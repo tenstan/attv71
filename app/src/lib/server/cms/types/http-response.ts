@@ -1,4 +1,4 @@
-interface GetResponse<TDocument> {
+export interface GetResponse<TDocument> {
   docs: TDocument[]
   totalDocs: number
   limit: number
