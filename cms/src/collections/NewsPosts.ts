@@ -1,7 +1,31 @@
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import { CollectionConfig } from 'payload/types'
+import {  CollectionAfterReadHook, CollectionConfig } from 'payload/types'
 import { isCreator, isLoggedIn } from '../access/validation'
-import { createMediaSectionBlock } from '../blocks/lexical/MediaSection'
+import { createMediaSectionBlock } from '../lexical/blocks/MediaSection'
+import ReadMoreBlock from '../lexical/blocks/ReadMore'
+import { NewsPost } from 'payload/generated-types'
+import payload from 'payload'
+
+const transformNewsPostWithReadMoreBlockHook: CollectionAfterReadHook<NewsPost> = ({ req, doc }) => {
+  if (!doc.content) {
+    return doc;
+  }
+
+  const readMoreBlockIndex = doc.content?.root.children.findIndex(node => node.type === 'block' && (node.fields as any).blockType === 'lexical-read-more');
+
+  if (readMoreBlockIndex === undefined) {
+    return doc;
+  }
+
+  if (req.query.preview === 'true') {
+    doc.content.root.children = doc.content.root.children.slice(0, readMoreBlockIndex + 1);
+  }
+  else {
+    doc.content.root.children.splice(readMoreBlockIndex, 1);
+  }
+
+  return doc;
+}
 
 const NewsPosts: CollectionConfig = {
   slug: 'news-posts',
@@ -18,6 +42,11 @@ const NewsPosts: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: [ 'title', 'datePublished' ]
+  },
+  hooks: {
+    afterRead: [
+      transformNewsPostWithReadMoreBlockHook
+    ]
   },
   fields: [
     {
@@ -45,7 +74,8 @@ const NewsPosts: CollectionConfig = {
           ...defaultFeatures,
           BlocksFeature({
             blocks: [
-              createMediaSectionBlock('news-post-media')
+              createMediaSectionBlock('news-post-media'),
+              ReadMoreBlock
             ]
           })
         ]
