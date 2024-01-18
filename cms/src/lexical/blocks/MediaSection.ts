@@ -6,6 +6,10 @@ type MediaCollectionSlug = typeof NewsPostMedia.slug;
 export const createMediaSectionBlock = (mediaCollectionSlug: MediaCollectionSlug): Block => {
   return {
     slug: 'lexical-media-section',
+    labels: {
+      singular: 'Media section',
+      plural: 'Media sections'
+    },
     fields: [
       {
         name: 'images',

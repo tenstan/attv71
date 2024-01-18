@@ -11,7 +11,7 @@ const config = {
 	kit: {
 		adapter: nodeAdapter()
 	},
-	extensions: ['.svelte', '.md']
+	extensions: ['.svelte']
 };
 
 export default config;

@@ -6,7 +6,7 @@ export interface NewsPost {
   content: {
     root: {
       type: 'root'
-      children: (ParagraphNode | NewsPostMediaSectionNode | OrderedListNode)[]
+      children: (ParagraphNode | NewsPostMediaSectionNode | OrderedListNode | ReadMoreNode)[]
     }
   }
 }
@@ -38,6 +38,13 @@ export interface NewsPostMediaSectionNode {
         url: string;
       }
     }[]
+  }
+}
+
+export interface ReadMoreNode {
+  type: 'block'
+  fields: {
+    blockType: 'lexical-read-more'
   }
 }
 
