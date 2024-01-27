@@ -1,4 +1,8 @@
 <script lang="ts">
+  import ParagraphNode from './ParagraphNode.svelte';
+  import ImageSection from './ImageSectionNode.svelte';
+  import OrderedListNode from './OrderedListNode.svelte';
+  import ReadMoreNode from './ReadMoreNode.svelte';
   import type { NewsPost } from "$lib/server/cms/get-news-posts";
   import IconCalendarBlankOutline from 'virtual:icons/mdi/calendar-blank-outline'
 
@@ -18,19 +22,13 @@
   <div class="mt-16 mx-auto max-w-4xl">
     {#each newsPost.nodes as node}
       {#if node.type === 'paragraph'}
-        <p>{node.text}</p>
+        <ParagraphNode>{ node.text }</ParagraphNode>
       {:else if node.type === 'image-section'}
-        <div class="flex justify-between">
-        {#each node.images as image}
-          <img class="max-w-sm" src="http://localhost:3000{image.source}" alt="placeholder" />
-        {/each}
-        </div>
+        <ImageSection images={node.images.map(image => ({ src: image.source, alt: image.alt }))} />
       {:else if node.type === 'ordered-list'}
-        <ol>
-          {#each node.items as item}
-              <li>{item.text}</li>
-          {/each}
-        </ol>
+        <OrderedListNode items={node.items.map(item => item.text)} />
+      {:else if node.type === 'read-more'}
+        <ReadMoreNode href={newsPost.id} />
       {/if}
     {/each}
   </div>
