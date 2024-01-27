@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DynamicNewsPost from '$lib/components/DynamicNewsPost.svelte';
+  import NewsPost from '$lib/components/NewsPost/NewsPost.svelte';
   import PreviewArticleSeparator from '$lib/components/PreviewArticleSeparator.svelte';
     import type { HomePageData } from './+page.server';
 
@@ -16,6 +16,6 @@
       <PreviewArticleSeparator />
     {/if}
 
-    <DynamicNewsPost newsPost={post}></DynamicNewsPost>
+    <NewsPost newsPost={post}></NewsPost>
   {/each}
 </div>
