@@ -8,7 +8,7 @@ export const seed = async () => {
 }
 
 const seedInitialAdmin = async () => {
-  const { INIT_ADMIN_EMAIL, INIT_ADMIN_PASSWORD } = getConfiguration('INIT_ADMIN_EMAIL', 'INIT_ADMIN_PASSWORD');
+  const { INIT_ADMIN_EMAIL, INIT_ADMIN_PASSWORD } = getConfiguration();
 
   if (!INIT_ADMIN_EMAIL && !INIT_ADMIN_PASSWORD) {
     return;

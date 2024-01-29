@@ -15,7 +15,9 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {};
+  globals: {
+    calendar: Calendar;
+  };
 }
 export interface User {
   id: string;
@@ -104,6 +106,19 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+export interface Calendar {
+  id: string;
+  activities?:
+    | {
+        title: string;
+        date: string;
+        moreinfo?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 
 
