@@ -11,6 +11,7 @@ import { azureBlobStorageAdapter } from '@payloadcms/plugin-cloud-storage/azure'
 import NewsPosts from './collections/NewsPosts'
 import { getConfiguration } from './lib/configuration'
 import ApiKeys from './collections/ApiKeys'
+import Calendar from './globals/Calendar'
 
 const configuration = getConfiguration();
 const isDevelopmentEnvironment = configuration.NODE_ENV === 'development';
@@ -23,6 +24,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   indexSortableFields: true,
   collections: [Users, NewsPosts, NewsPostMedia, ApiKeys],
+  globals: [Calendar],
   db: mongooseAdapter({
     url: configuration.DATABASE_URI || '',
     connectOptions: {
