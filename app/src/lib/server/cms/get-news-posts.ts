@@ -1,6 +1,6 @@
 
 import { getServerConfiguration } from '../configuration';
-import type { GetResponse } from './types/http-response';
+import type { GetCollectionResponse } from './types/http-response';
 import type { NewsPost as CmsNewsPost } from './types/news-posts';
 
 export const getNewsPosts = async (skFetch: typeof fetch): Promise<NewsPost[]> => {
@@ -12,7 +12,7 @@ export const getNewsPosts = async (skFetch: typeof fetch): Promise<NewsPost[]> =
     }
   })
 
-  const responseContent = await res.json() as GetResponse<CmsNewsPost>;
+  const responseContent = await res.json() as GetCollectionResponse<CmsNewsPost>;
   
   return responseContent.docs.map(doc => {
 

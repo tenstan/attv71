@@ -1,7 +1,7 @@
 <script lang="ts">
   import NewsPost from '$lib/components/NewsPost/NewsPost.svelte';
   import PreviewArticleSeparator from '$lib/components/PreviewArticleSeparator.svelte';
-    import type { HomePageData } from './+page.server';
+  import type { HomePageData } from './+page.server';
 
   export let data: HomePageData;
 </script>
