@@ -3,10 +3,11 @@
   import ContactDetails from "./ContactDetails.svelte";
   import ContactIcons from "./ContactIcons.svelte";
   import EntranceInfo from "./EntranceInfo.svelte";
+  import PageTitle from "$lib/components/PageTitle.svelte";
 </script>
 
-<div class="container">
-  <h2 class="page-title">Plaats</h2>
+<div class="container-s">
+  <PageTitle class="title">Plaats</PageTitle>
   <div class="contact-row">
     <div class="min-map-size">
       <MapLocation />
@@ -20,17 +21,14 @@
 </div>
 
 <style>
-  .container {
+  .container-s {
     padding-inline: 2rem;
     max-width: 80rem;
     margin: auto;
   }
 
-  .page-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 1em;
+  .container-s :global(.title) {
+    margin-bottom: 0.5em;
   }
 
   .contact-row {
