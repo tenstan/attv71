@@ -34,6 +34,7 @@ const Calendar: GlobalConfig = {
               name: 'title',
               type: 'text',
               required: true,
+              maxLength: 30
             },
             {
               name: 'date',
