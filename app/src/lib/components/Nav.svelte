@@ -13,7 +13,7 @@
       <nav class="hidden lg:block">
         <ul class="flex gap-6 text-xl">
           <NavItem href='/'>Home</NavItem>
-          <NavItem href='/evenementen'>Evenementen</NavItem>
+          <NavItem href='/kalender'>Kalender</NavItem>
           <SubMenuNavItem href="/over-ons">
             <svelte:fragment slot="main">Over ons</svelte:fragment>
             <svelte:fragment slot="sublist">
