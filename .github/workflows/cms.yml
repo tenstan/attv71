@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   build:
+    name: Build and deploy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -17,68 +18,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - name: Build and deploy
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          node-version: '18.x'
+          azure_static_web_apps_api_token: ${{ secrets.CMS_DEPLOYMENT_TOKEN }}
+          action: upload
+          app_location: './cms2'
+          api_location: ""
+          output_location: ""
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build application
-        run: npm run build
-
-      - name: Check for payload-types.ts changes
-        run: |
-          npm run generate:types
-          repo_is_dirty=$(git diff --no-ext-diff --quiet; echo $?)
-          if [ "$repo_is_dirty" -ne 0 ]; then
-            echo "Repository is dirty after syncing payload-types.ts. Please update the types to the newest possible state by running npm run generate:types and committing the new version." >&2
-            exit 1
-          fi
-
-      - name: Prune devDependencies
-        run: npm prune --production
-
-      - name: Zip artifacts
-        run: >-
-          zip --must-match -r payloadcms.zip build/ dist/ node_modules/ package*.json
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: payloadcms
-          path: cms/payloadcms.zip
-          if-no-files-found: error
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: payloadcms
-
-      - name: Sign in to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Set App Service startup command
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.30.0
-          inlineScript: az webapp config set --resource-group attv71 --name attv71-cms --startup-file "dist/server.js" --output none
-
-      - name: Deploy to Azure
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: attv71-cms
-          package: payloadcms.zip
-
-      - name: az logout
-        run: az logout
-        if: always()
