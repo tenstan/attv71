@@ -9,12 +9,21 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   location: location
 }
 
+module logWorkspaceDeployment 'log-workspace.bicep' = {
+  name: 'logWorkspaceDeployment'
+  scope: resourceGroup
+  params: {
+    location: location
+  }
+}
+
 module cmsDeployment 'cms.bicep' = {
   name: 'cmsDeployment'
   scope: resourceGroup
   params: {
     name: '${resourcePrefix}-cms'
     location: location
+    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }
 }
 
