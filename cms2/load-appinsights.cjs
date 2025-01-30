@@ -1,0 +1,13 @@
+let appInsights = require('applicationinsights')
+appInsights
+  .setup(process.env.APPINSIGHTS_CONNECTION_STRING)
+  .setAutoCollectConsole(true)
+  .setAutoCollectDependencies(true)
+  .setAutoCollectExceptions(true)
+  .setAutoCollectRequests(true)
+  .setAutoDependencyCorrelation(true)
+  .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+  .setSendLiveMetrics(true)
+  .setUseDiskRetryCaching(true)
+appInsights.defaultClient.setAutoPopulateAzureProperties(true)
+appInsights.start()
