@@ -8,5 +8,6 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
     name: 'Free'
     tier: 'Free'
   }
+  properties: {}
 }
 
