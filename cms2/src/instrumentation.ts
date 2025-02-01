@@ -6,7 +6,7 @@ export async function register() {
   registerOTel({
     serviceName: 'attv71',
     traceExporter: new AzureMonitorTraceExporter({
-      connectionString: process.env.APP_INSIGHTS_CONNECTION_STRING,
+      connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
     }),
   })
 }
