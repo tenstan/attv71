@@ -19,6 +19,9 @@ if (connectionString) {
       http: { enabled: true },
       postgreSql: { enabled: true },
     },
+    // This is disabled by default due to a performance hit while live metrics is opened.
+    // This performance hit does not apply when live metrics is not opened.
+    enableLiveMetrics: true,
   }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
