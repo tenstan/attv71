@@ -2,6 +2,11 @@ param name string
 param location string = resourceGroup().location
 param logWorkspaceId string
 
+@secure()
+param databaseConnectionString string
+@secure()
+param payloadSecret string
+
 resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
   name: name
   location: location
@@ -9,7 +14,6 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
     name: 'Free'
     tier: 'Free'
   }
-  properties: {}
 
   resource functionAppSettings 'config@2024-04-01' = {
     name: 'functionappsettings'
@@ -17,6 +21,11 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
       // Key names are important to automatically link SWA to correct Application Insights resource
       APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.properties.ConnectionString
       ApplicationInsightsAgent_EXTENSION_VERSION: '~3'
+
+      // While it would be better to put the secrets below in a key vault,
+      // managed functions for SWAs unfortunately do not support key vault references (2025-02-15).
+      DATABASE_CONNECTION_STRING: databaseConnectionString
+      PAYLOAD_SECRET: payloadSecret
     }
   }
 }
@@ -30,3 +39,4 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
   kind: 'web'
 }
+

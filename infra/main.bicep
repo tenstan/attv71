@@ -2,6 +2,11 @@ targetScope = 'subscription'
 
 param location string = deployment().location
 
+@secure()
+param payloadSecret string
+@secure()
+param cmsDatabaseConnectionString string
+
 var resourcePrefix = 'attv71'
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
@@ -24,6 +29,8 @@ module cmsDeployment 'cms.bicep' = {
     name: '${resourcePrefix}-cms'
     location: location
     logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
+    payloadSecret: payloadSecret
+    databaseConnectionString: cmsDatabaseConnectionString
   }
 }
 
