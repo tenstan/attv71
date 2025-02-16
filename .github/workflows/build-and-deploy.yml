@@ -9,6 +9,7 @@ on:
 jobs:
   file-changes:
     name: Check file changes
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       cms: ${{ steps.changes.outputs.cms }}
@@ -20,7 +21,6 @@ jobs:
       - name: Check file changes
         id: changes
         uses: dorny/paths-filter@v3
-        if: github.event_name == 'push'
         with:
           filters: |
             generic:
@@ -35,8 +35,8 @@ jobs:
     needs: [file-changes]
     if: >
       github.event_name == 'workflow_dispatch' ||
-      needs.file-changes.outputs.infra == 'true' ||
-      needs.file-changes.outputs.generic == 'true'
+      (needs.file-changes.outputs.infra == 'true' || needs.file-changes.outputs.generic == 'true') &&
+      (! failure() || ! cancelled())
     runs-on: ubuntu-latest
     permissions:
       id-token: write
