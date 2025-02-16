@@ -17,6 +17,7 @@ jobs:
     outputs:
       cms: ${{ steps.changes.outputs.cms }}
       infra: ${{ steps.changes.outputs.infra }}
+      generic: ${{ steps.changes.outputs.generic }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
