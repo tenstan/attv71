@@ -37,6 +37,8 @@ jobs:
   infra:
     name: Deploy infrastructure
     needs: [file-changes]
+    # Runs when either relevant files were changed or workflow_dispatch was triggered.
+    # This applies even when jobs this depends on were skipped.
     if: >
       github.event_name == 'workflow_dispatch' ||
       (needs.file-changes.outputs.infra == 'true' || needs.file-changes.outputs.generic == 'true') &&
@@ -73,8 +75,8 @@ jobs:
   cms:
     name: Build and deploy CMS
     needs: [file-changes, infra]
-    # Run when relevant files were changed, and make sure this still runs when dependent jobs were skipped.
-    # Run regardless if workflow_dispatch was called.
+    # Runs when either relevant files were changed or workflow_dispatch was triggered.
+    # This applies even when jobs this depends on were skipped.
     if: >
       github.event_name == 'workflow_dispatch' ||
       (needs.file-changes.outputs.cms == 'true' || needs.file-changes.outputs.generic == 'true') &&
