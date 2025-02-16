@@ -6,6 +6,9 @@ on:
       - master
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+
 jobs:
   file-changes:
     name: Check file changes
