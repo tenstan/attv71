@@ -14,6 +14,7 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
     name: 'Free'
     tier: 'Free'
   }
+  properties: {}
 
   resource functionAppSettings 'config@2024-04-01' = {
     name: 'functionappsettings'
