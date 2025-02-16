@@ -1,0 +1,86 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  file-changes:
+    name: Check file changes
+    runs-on: ubuntu-latest
+    outputs:
+      cms: ${{ steps.changes.outputs.cms }}
+      infra: ${{ steps.changes.outputs.infra }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check file changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            generic:
+              - '.github/**'
+            cms:
+              - 'cms2/**'
+            infra:
+              - 'infra/**'
+
+  infra:
+    name: Deploy infrastructure
+    needs: [file-changes]
+    if: >
+      needs.file-changes.outputs.infra == 'true' ||
+      needs.file-changes.outputs.generic == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sign in to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Bicep configuration
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          template: infra/main.bicep
+          scope: subscription
+          region: westeurope
+          parameters: cmsDatabaseConnectionString=${{ secrets.CMS_DATABASE_CONNECTION_STRING }} payloadSecret=${{ secrets.PAYLOAD_SECRET }}
+
+      - name: az logout
+        run: az logout
+        if: always()
+
+
+  cms:
+    name: Build and deploy CMS
+    needs: [file-changes, infra]
+    # Run when relevant files were changed, and make sure this still runs when infra job was skipped
+    if: >
+      (needs.file-changes.outputs.cms == 'true' || needs.file-changes.outputs.generic == 'true') &&
+      (! failure() || ! cancelled())
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.CMS_DEPLOYMENT_TOKEN }}
+          action: upload
+          app_location: './cms2'
+          api_location: ""
+          output_location: ""
