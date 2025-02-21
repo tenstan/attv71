@@ -9,6 +9,9 @@ on:
 concurrency:
   group: ${{ github.workflow }}
 
+permissions:
+  contents: read
+
 jobs:
   file-changes:
     name: Check file changes
@@ -46,7 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -92,7 +94,6 @@ jobs:
           cache: npm
           cache-dependency-path: cms2/package-lock.json
 
-
       - name: Cache Next.js build cache
         uses: actions/cache@v4
         with:
@@ -109,10 +110,7 @@ jobs:
         run: npm ci --prefix 'cms2/'
 
       - name: Build
-        run: npm run build --prefix 'cms2/'
-
-      - name: Omit dev dependencies from build
-        run: npm prune --omit=dev --prefix 'cms2/'
+        run: npm run build:standalone --prefix 'cms2/'
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
@@ -120,9 +118,9 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.CMS_DEPLOYMENT_TOKEN }}
           action: upload
           app_location: 'cms2/'
-          api_location: ""
-          output_location: ""
-          # SWA uses Oryx for building, which is unbearably slow, so the application is built manually.
+          api_location: ''
+          output_location: ''
+          # Oryx should automatically detect the standalone build from the previous steps
           skip_app_build: true
           skip_api_build: true
 

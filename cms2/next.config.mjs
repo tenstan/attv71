@@ -2,6 +2,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: process.env.BUILD_MODE === 'standalone' ? 'standalone' : 'export',
   webpack: (config, { isServer }) => {
     if (isServer) {
       // @azure/functions-core is used by Azure Application Insights.
