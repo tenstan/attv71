@@ -40,5 +40,6 @@ module appDeployment 'app.bicep' = {
   params: {
     name: '${resourcePrefix}-app'
     location: location
+    logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }
 }
