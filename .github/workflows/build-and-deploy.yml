@@ -36,6 +36,8 @@ jobs:
               - 'cms2/**'
             infra:
               - 'infra/**'
+            app:
+              - 'app2/**'
 
   infra:
     name: Deploy infrastructure
@@ -89,7 +91,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Use Node 20.x
+        uses: actions/setup-node@v3
         with:
           # Azure SWA doesn't support node 22 yet (2025-02-17).
           node-version-file: cms2/package.json
@@ -126,3 +129,33 @@ jobs:
           skip_app_build: true
           skip_api_build: true
 
+  app:
+    name: Build and deploy App
+    needs: [file-changes, infra, cms]
+    # Runs when either relevant files were changed or workflow_dispatch was triggered.
+    # This applies even when jobs this depends on were skipped.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (needs.file-changes.outputs.app == 'true' || needs.file-changes.outputs.generic == 'true') &&
+      (! failure() || ! cancelled())
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node 20.x
+        uses: actions/setup-node@v3
+        with:
+          # Azure SWA doesn't support node 22 yet (2025-02-17).
+          node-version-file: app2/package.json
+          cache: npm
+          cache-dependency-path: app2/package-lock.json
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.APP_DEPLOYMENT_TOKEN }}
+          action: upload
+          app_location: 'app2/'
+          api_location: 'app2/.output/server'
+          output_location: '.output/public' # relative to app_location
