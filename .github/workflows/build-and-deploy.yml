@@ -67,7 +67,9 @@ jobs:
           template: infra/main.bicep
           scope: subscription
           region: westeurope
-          parameters: cmsDatabaseConnectionString=${{ secrets.CMS_DATABASE_CONNECTION_STRING }} payloadSecret=${{ secrets.PAYLOAD_SECRET }}
+          parameters:
+            cmsDatabaseConnectionString=${{ secrets.CMS_DATABASE_CONNECTION_STRING }}
+            payloadSecret=${{ secrets.PAYLOAD_SECRET }}
 
       - name: az logout
         run: az logout
