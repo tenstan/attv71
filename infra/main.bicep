@@ -34,3 +34,11 @@ module cmsDeployment 'cms.bicep' = {
   }
 }
 
+module appDeployment 'app.bicep' = {
+  name: 'appDeployment'
+  scope: resourceGroup
+  params: {
+    name: '${resourcePrefix}-app'
+    location: location
+  }
+}
