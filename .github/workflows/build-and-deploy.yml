@@ -91,13 +91,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+        # Azure SWA doesn't support node 22 yet (2025-02-17).
       - name: Use Node 20.x
         uses: actions/setup-node@v3
         with:
-          # Azure SWA doesn't support node 22 yet (2025-02-17).
           node-version-file: cms2/package.json
-          cache: npm
-          cache-dependency-path: cms2/package-lock.json
 
       - name: Cache Next.js build cache
         uses: actions/cache@v4
@@ -143,13 +141,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+        # Azure SWA doesn't support node 22 yet (2025-02-17).
       - name: Use Node 20.x
         uses: actions/setup-node@v3
         with:
-          # Azure SWA doesn't support node 22 yet (2025-02-17).
           node-version-file: app2/package.json
-          cache: npm
-          cache-dependency-path: app2/package-lock.json
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
