@@ -101,10 +101,10 @@ jobs:
             ~/.npm
             cms2/.next/cache
           # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          key: ${{ runner.os }}-cms-${{ hashFiles('cms2/**/package-lock.json') }}-${{ hashFiles('cms2/**/*.js', 'cms2/**/*.jsx', 'cms2/**/*.ts', 'cms2/**/*.tsx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-cms-${{ hashFiles('**/package-lock.json') }}-
 
       - name: Install packages
         run: npm ci --prefix 'cms2/'
