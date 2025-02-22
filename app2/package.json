@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "build:azure": "cross-env NITRO_PRESET=azure nuxt build && cp -r staticwebapp.config.json .output/public/staticwebapp.config.json",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -13,6 +14,9 @@
     "nuxt": "^3.15.4",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   },
   "engines": {
     "node": "20.x"
