@@ -5,11 +5,13 @@ export default defineNuxtConfig({
       config: {
         platform: {
           // v20 is the highest supported version of Azure, even though v22 is LTS
-          apiRuntime: "node:20",
+          apiRuntime: 'node:20',
         },
       },
     },
   },
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-});
+  modules: ['@nuxt/eslint'],
+})
+
