@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  css: ['~/assets/css/reset.css', '~/assets/css/base.css'],
   nitro: {
     azure: {
       config: {
@@ -12,8 +13,9 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts'],
   typescript: {
     typeCheck: true,
   },
 })
+

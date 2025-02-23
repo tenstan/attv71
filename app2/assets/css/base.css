@@ -1,0 +1,16 @@
+:root {
+  --background-primary: hsl(60, 2%, 13%);
+  --background-secondary: hsl(53, 100%, 46%);
+}
+
+body {
+  /* Fonts are installed by @nuxt/fonts */
+  font-family: 'Inter';
+  font-weight: 400;
+}
+
+p, ol, ul {
+  /* Fonts are installed by @nuxt/fonts */
+  font-family: 'Roboto';
+  font-weight: 300;
+}
