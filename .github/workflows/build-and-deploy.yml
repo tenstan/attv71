@@ -164,6 +164,9 @@ jobs:
       - name: Install packages
         run: npm ci --prefix 'app2/'
 
+      - name: Run linting
+        run: npm run lint --prefix 'app2/'
+
       - name: Build
         run: npm run build:azure --prefix 'app2/'
 
