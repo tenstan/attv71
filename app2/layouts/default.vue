@@ -1,10 +1,13 @@
 <template>
   <div :class="$style.page">
-    <main :class="$style.main">
+    <div>
+      <Header />
+    </div>
+    <main :class="$style['main-container']">
       <slot />
     </main>
-    <div :class="$style.footer">
-      <div>footer</div>
+    <div :class="$style['footer-container']">
+      <Footer />
     </div>
   </div>
 </template>
@@ -19,12 +22,12 @@
   color: #fff;
 }
 
-.main {
+.main-container {
   margin-top: 3rem;
   flex-grow: 1;
 }
 
-.footer {
+.footer-container {
   margin-top: 5rem;
 }
 </style>
