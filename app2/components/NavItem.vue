@@ -4,6 +4,12 @@ const props = defineProps<{ href: string }>()
 
 <template>
   <li>
-    <a class="hover:underline" :href="props.href"><slot /></a>
+    <a :class="$style['link']" :href="props.href"><slot /></a>
   </li>
 </template>
+
+<style lang="postcss" module>
+.link {
+  color: var(--nav-item-link);
+}
+</style>

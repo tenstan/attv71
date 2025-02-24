@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import NavItem from '~/components/NavItem.vue'
+import NavDropdown from '~/components/NavDropdown.vue'
+
 interface NavigationItem {
   text: string
   href: string
@@ -53,8 +56,11 @@ const nav: NavigationItem[] = [
 .nav-list {
   display: flex;
   gap: 1.5rem;
+
   font-size: 1.25rem;
+  font-weight: 300;
+  font-family: 'Roboto';
+
   list-style: none;
-  color: black;
 }
 </style>
