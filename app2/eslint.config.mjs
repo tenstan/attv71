@@ -4,5 +4,6 @@ export default withNuxt({
   rules: {
     // PascalCase component names should mostly deal with this problem, and otherwise I don't care
     'vue/multi-word-component-names': 'off',
+    'vue/no-undef-components': 'error',
   },
 })
