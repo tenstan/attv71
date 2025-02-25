@@ -34,11 +34,11 @@ module cmsDeployment 'cms.bicep' = {
   }
 }
 
-module appDeployment 'app.bicep' = {
-  name: 'appDeployment'
+module websiteDeployment 'website.bicep' = {
+  name: 'websiteDeployment'
   scope: resourceGroup
   params: {
-    name: '${resourcePrefix}-app'
+    name: '${resourcePrefix}-website'
     location: location
     logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
   }

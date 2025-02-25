@@ -2,7 +2,7 @@ param name string
 param location string = resourceGroup().location
 param logWorkspaceId string
 
-resource app 'Microsoft.Web/staticSites@2024-04-01' = {
+resource website 'Microsoft.Web/staticSites@2024-04-01' = {
   name: name
   location: location
   sku: {
