@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Article'
 import { seed } from './lib/database-seed'
+import Navigation from './globals/Navigation'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,6 +21,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  globals: [Navigation],
   collections: [Users, Media, Articles],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
