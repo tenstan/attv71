@@ -1,4 +1,4 @@
-import { FieldAccess } from 'payload'
+import type { FieldAccess } from 'payload'
 
 export const isLoggedIn: FieldAccess = ({ req: { user } }) => {
   return !!user

@@ -1,4 +1,4 @@
-import { GlobalConfig } from 'payload'
+import type { GlobalConfig } from 'payload'
 import { isLoggedIn } from '../access/validation'
 
 const Navigation: GlobalConfig = {

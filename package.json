@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "private": true,
+  "name": "attv71",
+  "workspaces": [
+    "website",
+    "cms2"
+  ],
+  "engines": {
+    "node": "20.x"
+  }
+}

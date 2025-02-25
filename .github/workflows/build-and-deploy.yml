@@ -105,16 +105,16 @@ jobs:
             ~/.npm
             cms2/.next/cache
           # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-cms-${{ hashFiles('cms2/**/package-lock.json') }}-${{ hashFiles('cms2/**/*.js', 'cms2/**/*.jsx', 'cms2/**/*.ts', 'cms2/**/*.tsx') }}
+          key: ${{ runner.os }}-cms-${{ hashFiles('package-lock.json', 'cms2/package-lock.json') }}-${{ hashFiles('cms2/**/*.js', 'cms2/**/*.jsx', 'cms2/**/*.ts', 'cms2/**/*.tsx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            ${{ runner.os }}-cms-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-cms-${{ hashFiles('package-lock.json', 'cms2/package-lock.json') }}-
 
       - name: Install packages
-        run: npm ci --prefix 'cms2/'
+        run: npm ci --workspace=cms2
 
       - name: Build
-        run: npm run build:standalone --prefix 'cms2/'
+        run: npm run build:standalone --workspace=cms2
         env:
           NITRO_PRESET: azure
 
@@ -157,19 +157,19 @@ jobs:
             ~/.npm
             website/.nuxt
           # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-website-${{ hashFiles('website/**/package-lock.json') }}-${{ hashFiles('website/**/*.js', 'website/**/*.jsx', 'website/**/*.ts', 'website/**/*.tsx') }}
+          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package-lock.json') }}-${{ hashFiles('website/**/*.js', 'website/**/*.jsx', 'website/**/*.ts', 'website/**/*.tsx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            ${{ runner.os }}-website-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-website-${{ hashFiles('package-lock.json','website/package-lock.json') }}-
 
       - name: Install packages
-        run: npm ci --prefix 'website/'
+        run: npm ci --workspace=website
 
       - name: Run linting
-        run: npm run lint --prefix 'website/'
+        run: npm run lint --workspace=website
 
       - name: Build
-        run: npm run build:azure --prefix 'website/'
+        run: npm run build:azure --workspace=website
 
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1

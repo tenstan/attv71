@@ -1,5 +1,5 @@
-import { isLoggedIn, isWriter } from '@/access/validation'
-import { createGalleryBlock } from '@/lexical/blocks/GalleryBlock'
+import { isLoggedIn, isWriter } from '../access/validation'
+import { createGalleryBlock } from '../lexical/blocks/GalleryBlock'
 import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 

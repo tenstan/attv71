@@ -1,4 +1,4 @@
-import { Block } from 'payload'
+import type { Block } from 'payload'
 import { Media } from '../../collections/Media'
 
 type MediaCollectionSlug = typeof Media.slug

@@ -1,4 +1,4 @@
-import { Field } from 'payload'
+import type { Field } from 'payload'
 import { isAdmin, isLoggedIn } from './validation'
 
 export const availableRoles = ['admin', 'writer'] as const
