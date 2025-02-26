@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "description": "Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
   "scripts": {
     "build": "nuxt build",
     "build:azure": "cross-env NITRO_PRESET=azure nuxt build && cp -r staticwebapp.config.json .output/public/staticwebapp.config.json",
@@ -13,7 +17,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@attv71/payload-app": "0.0.0",
     "@nuxt/eslint": "^1.1.0",
     "@nuxt/fonts": "^0.10.3",
     "eslint": "^9.21.0",
@@ -30,9 +33,5 @@
   },
   "engines": {
     "node": "20.x"
-  },
-  "description": "Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
+  }
 }

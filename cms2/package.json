@@ -4,13 +4,6 @@
   "description": "A blank template to get started with Payload 3.0",
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
-    }
-  },
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "build:standalone": "cross-env NODE_OPTIONS=--no-deprecation BUILD_MODE=standalone next build && cp -r .next/static .next/standalone/.next/",
