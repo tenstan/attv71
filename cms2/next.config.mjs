@@ -1,4 +1,5 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import { join } from 'node:path'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -19,6 +20,7 @@ const nextConfig = {
     }
     return config
   },
+  outputFileTracingRoot: join(import.meta.dirname, '../'), // Because this is a monorepo
 }
 
 export default withPayload(nextConfig)
