@@ -45,10 +45,11 @@ jobs:
     needs: [file-changes]
     # Runs when either relevant files were changed or workflow_dispatch was triggered.
     # This applies even when jobs this depends on were skipped.
+    # Job should not run if previous jobs failed or were cancelled.
     if: >
       github.event_name == 'workflow_dispatch' ||
       (needs.file-changes.outputs.infra == 'true' || needs.file-changes.outputs.generic == 'true') &&
-      (! failure() || ! cancelled())
+      (! failure() && ! cancelled())
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -83,10 +84,11 @@ jobs:
     needs: [file-changes, infra]
     # Runs when either relevant files were changed or workflow_dispatch was triggered.
     # This applies even when jobs this depends on were skipped.
+    # Job should not run if previous jobs failed or were cancelled.
     if: >
       github.event_name == 'workflow_dispatch' ||
       (needs.file-changes.outputs.cms == 'true' || needs.file-changes.outputs.generic == 'true') &&
-      (! failure() || ! cancelled())
+      (! failure() && ! cancelled())
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -135,10 +137,11 @@ jobs:
     needs: [file-changes, infra, cms]
     # Runs when either relevant files were changed or workflow_dispatch was triggered.
     # This applies even when jobs this depends on were skipped.
+    # Job should not run if previous jobs failed or were cancelled.
     if: >
       github.event_name == 'workflow_dispatch' ||
       (needs.file-changes.outputs.website == 'true' || needs.file-changes.outputs.generic == 'true') &&
-      (! failure() || ! cancelled())
+      (! failure() && ! cancelled())
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
