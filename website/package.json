@@ -8,7 +8,7 @@
     "build:azure": "cross-env NITRO_PRESET=azure nuxt build && cp -r staticwebapp.config.json .output/public/staticwebapp.config.json",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "lint": "eslint . && prettier --check",
+    "lint": "eslint . && prettier --check .",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
