@@ -74,6 +74,8 @@ jobs:
           parameters:
             cmsDatabaseConnectionString=${{ secrets.CMS_DATABASE_CONNECTION_STRING }}
             payloadSecret=${{ secrets.PAYLOAD_SECRET }}
+            cmsEntraIdClientId=${{ secrets.CMS_ENTRA_ID_CLIENT_ID }}
+            cmsEntraIdClientSecret=${{ secrets.CMS_ENTRA_ID_CLIENT_SECRET }}
 
       - name: az logout
         run: az logout

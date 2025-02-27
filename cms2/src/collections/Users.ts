@@ -4,7 +4,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    disableLocalStrategy: true,
+  },
   access: {
     read: isLoggedIn,
     create: isAdmin,

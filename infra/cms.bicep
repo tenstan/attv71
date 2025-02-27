@@ -6,6 +6,10 @@ param logWorkspaceId string
 param databaseConnectionString string
 @secure()
 param payloadSecret string
+@secure()
+param cmsEntraIdClientId string
+@secure()
+param cmsEntraIdClientSecret string
 
 resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
   name: name
@@ -30,6 +34,9 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
       // managed functions for SWAs unfortunately do not support key vault references (2025-02-15).
       DATABASE_CONNECTION_STRING: databaseConnectionString
       PAYLOAD_SECRET: payloadSecret
+
+      ENTRA_ID_CLIENT_ID: cmsEntraIdClientId
+      ENTRA_ID_CLIENT_SECRET: cmsEntraIdClientSecret
     }
   }
 }

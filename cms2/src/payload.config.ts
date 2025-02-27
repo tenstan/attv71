@@ -8,8 +8,8 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Article'
-import { seed } from './lib/database-seed'
 import Navigation from './globals/Navigation'
+import { entraIdOAuthPlugin } from './oauth/entra-id'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,6 +19,9 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      afterLogin: ['src/oauth/components/EntraIdLoginButton#EntraIdLoginButton'],
     },
   },
   globals: [Navigation],
@@ -33,9 +36,6 @@ export default buildConfig({
       connectionString: process.env.DATABASE_CONNECTION_STRING || '',
     },
   }),
-  onInit: async (payload) => {
-    await seed(payload)
-  },
   sharp,
-  plugins: [],
+  plugins: [entraIdOAuthPlugin],
 })

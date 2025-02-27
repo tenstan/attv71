@@ -6,6 +6,10 @@ param location string = deployment().location
 param payloadSecret string
 @secure()
 param cmsDatabaseConnectionString string
+@secure()
+param cmsEntraIdClientId string
+@secure()
+param cmsEntraIdClientSecret string
 
 var resourcePrefix = 'attv71'
 
@@ -31,6 +35,8 @@ module cmsDeployment 'cms.bicep' = {
     logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
     payloadSecret: payloadSecret
     databaseConnectionString: cmsDatabaseConnectionString
+    cmsEntraIdClientId: cmsEntraIdClientId
+    cmsEntraIdClientSecret: cmsEntraIdClientSecret
   }
 }
 
