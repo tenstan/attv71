@@ -26,6 +26,8 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
   resource functionAppSettings 'config@2024-04-01' = {
     name: 'functionappsettings'
     properties: {
+      NEXT_PUBLIC_URL: 'https://${cms.properties.defaultHostname}'
+
       // Key names are important to automatically link SWA to correct Application Insights resource
       APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.properties.ConnectionString
       ApplicationInsightsAgent_EXTENSION_VERSION: '~3'
