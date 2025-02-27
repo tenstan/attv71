@@ -37,6 +37,8 @@ resource cms 'Microsoft.Web/staticSites@2024-04-01' = {
 
       ENTRA_ID_CLIENT_ID: cmsEntraIdClientId
       ENTRA_ID_CLIENT_SECRET: cmsEntraIdClientSecret
+      #disable-next-line use-resource-id-functions
+      ENTRA_ID_TENANT_ID: tenant().tenantId
     }
   }
 }
