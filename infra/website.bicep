@@ -1,6 +1,10 @@
 param name string
 param location string = resourceGroup().location
 param logWorkspaceId string
+param cmsBaseUrl string
+
+@secure()
+param websiteApiKeyForCms string
 
 resource website 'Microsoft.Web/staticSites@2024-04-01' = {
   name: name
@@ -20,6 +24,9 @@ resource website 'Microsoft.Web/staticSites@2024-04-01' = {
       // Key names are important to automatically link SWA to correct Application Insights resource
       APPLICATIONINSIGHTS_CONNECTION_STRING: appInsights.properties.ConnectionString
       ApplicationInsightsAgent_EXTENSION_VERSION: '~3'
+
+      NUXT_CMS_API_KEY: websiteApiKeyForCms
+      NUXT_CMS_BASE_URL: cmsBaseUrl
     }
   }
 }

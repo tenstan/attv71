@@ -26,4 +26,8 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  runtimeConfig: {
+    cmsBaseUrl: 'http://localhost:3010',
+    cmsApiKey: 'GENERATE_THIS_IN_CMS',
+  },
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{ href: string; children: { text: string; href: string }[] }>()
+const props = defineProps<{ href: string; children: { name: string; href: string }[] }>()
 </script>
 
 <template>
@@ -8,8 +8,8 @@ const props = defineProps<{ href: string; children: { text: string; href: string
       <slot />
     </a>
     <ul :class="$style['dropdown-list']">
-      <li v-for="child in props.children" :key="child.text">
-        <a :href="child.href">{{ child.text }}</a>
+      <li v-for="child in props.children" :key="child.name">
+        <a :href="child.href">{{ child.name }}</a>
       </li>
     </ul>
   </li>

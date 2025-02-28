@@ -76,6 +76,7 @@ jobs:
             payloadSecret=${{ secrets.PAYLOAD_SECRET }}
             cmsEntraIdClientId=${{ secrets.CMS_ENTRA_ID_CLIENT_ID }}
             cmsEntraIdClientSecret=${{ secrets.CMS_ENTRA_ID_CLIENT_SECRET }}
+            websiteApiKeyForCms=${{ secrets.APP_API_KEY_FOR_CMS }}
 
       - name: az logout
         run: az logout

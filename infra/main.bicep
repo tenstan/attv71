@@ -10,6 +10,8 @@ param cmsDatabaseConnectionString string
 param cmsEntraIdClientId string
 @secure()
 param cmsEntraIdClientSecret string
+@secure()
+param websiteApiKeyForCms string
 
 var resourcePrefix = 'attv71'
 
@@ -47,5 +49,7 @@ module websiteDeployment 'website.bicep' = {
     name: '${resourcePrefix}-website'
     location: location
     logWorkspaceId: logWorkspaceDeployment.outputs.logWorkspaceId
+    websiteApiKeyForCms: websiteApiKeyForCms
+    cmsBaseUrl: cmsDeployment.outputs.cmsBaseUrl
   }
 }

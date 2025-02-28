@@ -1,52 +1,17 @@
 <script setup lang="ts">
 import NavItem from '~/components/NavItem.vue'
 import NavDropdown from '~/components/NavDropdown.vue'
+import useNavigationFetch from '~/composables/use-navigation-fetch'
 
-interface NavigationItem {
-  text: string
-  href: string
-  children?: {
-    text: string
-    href: string
-  }[]
-}
-
-const nav: NavigationItem[] = [
-  {
-    text: 'Sample1',
-    href: '/',
-  },
-  {
-    text: 'Sample2',
-    href: '/sample2',
-  },
-  {
-    text: 'Sample3',
-    href: '/sample3',
-    children: [
-      {
-        text: 'Sample3',
-        href: '/sample3',
-      },
-      {
-        text: 'Sample4',
-        href: '/sample4',
-      },
-      {
-        text: 'Sample5',
-        href: '/sample5',
-      },
-    ],
-  },
-]
+const { data: nav } = await useNavigationFetch()
 </script>
 
 <template>
   <nav>
-    <ul :class="$style['nav-list']">
-      <template v-for="navItem in nav" :key="navItem.text">
-        <NavItem v-if="!navItem.children" :href="navItem.href">{{ navItem.text }}</NavItem>
-        <NavDropdown v-else :href="navItem.href" :children="navItem.children">{{ navItem.text }}</NavDropdown>
+    <ul v-if="nav?.items" :class="$style['nav-list']">
+      <template v-for="navItem in nav.items" :key="navItem.name">
+        <NavItem v-if="!navItem.children" :href="navItem.href">{{ navItem.name }}</NavItem>
+        <NavDropdown v-else :href="navItem.href" :children="navItem.children">{{ navItem.name }}</NavDropdown>
       </template>
     </ul>
   </nav>
