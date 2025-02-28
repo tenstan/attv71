@@ -5,11 +5,9 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-import { Articles } from './collections/Article'
 import Navigation from './globals/Navigation'
 import { entraIdOAuthPlugin } from './oauth/entra-id'
+import { ApiKeys, Articles, Media, Users } from './collections'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,7 +23,7 @@ export default buildConfig({
     },
   },
   globals: [Navigation],
-  collections: [Users, Media, Articles],
+  collections: [Users, Media, Articles, ApiKeys],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3010',
