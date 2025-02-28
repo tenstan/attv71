@@ -18,10 +18,12 @@ const Navigation: GlobalConfig = {
         {
           name: 'name',
           type: 'text',
+          required: true,
         },
         {
           name: 'href',
           type: 'text',
+          required: true,
         },
         {
           name: 'children',
@@ -30,10 +32,12 @@ const Navigation: GlobalConfig = {
             {
               name: 'name',
               type: 'text',
+              required: true,
             },
             {
               name: 'href',
               type: 'text',
+              required: true,
             },
           ],
         },
