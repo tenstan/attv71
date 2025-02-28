@@ -28,6 +28,8 @@ export default buildConfig({
   collections: [Users, Media, Articles],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3010',
+  cors: [process.env.NEXT_PUBLIC_URL || 'http://localhost:3010'],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
