@@ -384,12 +384,12 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Navigation {
   id: number;
   items: {
-    name?: string | null;
-    href?: string | null;
+    name: string;
+    href: string;
     children?:
       | {
-          name?: string | null;
-          href?: string | null;
+          name: string;
+          href: string;
           id?: string | null;
         }[]
       | null;

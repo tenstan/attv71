@@ -31,6 +31,14 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  onInit: async (payload) => {
+    if (process.env.NODE_ENV === 'development') {
+      // @ts-expect-error: This module only exists in development with a Webpack alias.
+      // I haven't found a good way to make Typescript aware of this module.
+      const { seedDevData } = await import('database-seed')
+      await seedDevData(payload)
+    }
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_CONNECTION_STRING || '',

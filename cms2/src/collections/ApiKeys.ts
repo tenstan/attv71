@@ -30,6 +30,7 @@ export const ApiKeys: CollectionConfig = {
       type: 'text',
       maxLength: 50,
       required: true,
+      unique: true,
       admin: {
         description: 'What is this API key for?',
       },

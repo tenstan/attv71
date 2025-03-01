@@ -28,6 +28,19 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['**/database-seed'],
+              message:
+                "The database-seed module should be imported with the alias import('database-seed') instead, " +
+                "to ensure that it is only available in dev mode and can\'t be abused in production.",
+            },
+          ],
+        },
+      ],
     },
   },
 ]

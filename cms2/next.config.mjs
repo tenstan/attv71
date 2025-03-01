@@ -3,7 +3,13 @@ import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: process.env.BUILD_MODE === 'standalone' ? 'standalone' : undefined,
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
+    if (dev) {
+      // Don't include the database-seed module in production,
+      // to prevent some fool from creating data for himself and gain access to the deployed system.
+      config.resolve.alias['database-seed$'] = 'src/dev/database-seed'
+    }
+
     if (isServer) {
       // @azure/functions-core is used by Azure Application Insights.
       // The module can only be resolved when hosting this application in Azure.
