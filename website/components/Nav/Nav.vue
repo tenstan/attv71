@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import NavItem from '~/components/NavItem.vue'
-import NavDropdown from '~/components/NavDropdown.vue'
+import NavItem from '~/components/Nav/NavItem.vue'
+import NavDropdown from '~/components/Nav/NavDropdown.vue'
 import useNavigationFetch from '~/composables/use-navigation-fetch'
 
 const { data: nav } = await useNavigationFetch()
