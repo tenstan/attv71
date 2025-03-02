@@ -20,6 +20,36 @@ const seedDevApiKey = async (payload: Payload) => {
   }
 }
 
+const seedNavigationData = async (payload: Payload) => {
+  const existingNavigation = await payload.findGlobal({
+    slug: 'navigation',
+  })
+
+  if (existingNavigation.items.length === 0) {
+    await payload.updateGlobal({
+      slug: 'navigation',
+      data: {
+        items: [
+          {
+            name: 'Home',
+            href: '/',
+          },
+          {
+            name: 'Calendar',
+            href: '/calendar',
+          },
+          {
+            name: 'Contact',
+            href: '/contact',
+          },
+        ],
+      },
+    })
+  }
+
+  payload.logger.info(JSON.stringify(existingNavigation))
+}
+
 export const seedDevData = async (payload: Payload) => {
   if (process.env.NODE_ENV !== 'development') {
     throw new Error(
@@ -28,4 +58,5 @@ export const seedDevData = async (payload: Payload) => {
   }
 
   await seedDevApiKey(payload)
+  await seedNavigationData(payload)
 }
