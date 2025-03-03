@@ -46,8 +46,6 @@ const seedNavigationData = async (payload: Payload) => {
       },
     })
   }
-
-  payload.logger.info(JSON.stringify(existingNavigation))
 }
 
 export const seedDevData = async (payload: Payload) => {

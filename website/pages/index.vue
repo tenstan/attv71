@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '#imports'
+import ArticleList from '~/components/Article/ArticleList.vue'
 
 useHead({
   title: "ATTV'71 - Home",
@@ -8,6 +9,6 @@ useHead({
 
 <template>
   <div>
-    <p>Hello, world!</p>
+    <ArticleList />
   </div>
 </template>

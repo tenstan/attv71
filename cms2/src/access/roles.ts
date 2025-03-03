@@ -1,7 +1,7 @@
 import type { Field } from 'payload'
 import { isAdmin, isLoggedIn } from './validation'
 
-export const availableRoles = ['admin', 'writer'] as const
+export const availableRoles = ['admin', 'author'] as const
 
 export type Role = (typeof availableRoles)[number]
 

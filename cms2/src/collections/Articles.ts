@@ -1,9 +1,9 @@
-import { isLoggedIn, isWriter } from '../access/validation'
-import { createGalleryBlock } from '../lexical/blocks/GalleryBlock'
-import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { ContentBlock } from 'src/blocks/ContentBlock'
+import { isLoggedIn, isAuthor } from '../access/validation'
 import type { CollectionConfig } from 'payload'
+import { MediaBlock } from 'src/blocks/MediaBlock'
 
-export const Articles: CollectionConfig = {
+export const Articles: CollectionConfig<'articles'> = {
   slug: 'articles',
   labels: {
     singular: 'Article',
@@ -11,9 +11,9 @@ export const Articles: CollectionConfig = {
   },
   access: {
     read: isLoggedIn,
-    create: isWriter,
-    update: isWriter,
-    delete: isWriter,
+    create: isAuthor,
+    update: isAuthor,
+    delete: isAuthor,
   },
   admin: {
     useAsTitle: 'title',
@@ -27,27 +27,30 @@ export const Articles: CollectionConfig = {
       required: true,
     },
     {
-      name: 'datePublished',
-      type: 'date',
-      defaultValue: () => new Date(),
-      required: true,
-      admin: {
-        date: {
-          displayFormat: 'dd-MM-yyyy',
+      type: 'tabs',
+      tabs: [
+        {
+          fields: [
+            {
+              name: 'layout',
+              type: 'blocks',
+              blocks: [ContentBlock, MediaBlock],
+              required: true,
+              admin: {
+                initCollapsed: true,
+              },
+            },
+          ],
+          label: 'Content',
         },
-      },
+      ],
     },
     {
-      name: 'content',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [
-          ...defaultFeatures,
-          BlocksFeature({
-            blocks: [createGalleryBlock('media')],
-          }),
-        ],
-      }),
+      name: 'datePublished',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
 }
