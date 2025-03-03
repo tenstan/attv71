@@ -1,1 +1,0 @@
-<hr class="my-20 border-stone-400">
