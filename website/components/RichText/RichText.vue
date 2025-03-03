@@ -9,7 +9,9 @@ const { content } = defineProps<{ content: RichText }>()
 <template>
   <div :class="$style['rich-text']">
     <template v-for="child in content.root.children">
+      <!-- eslint-disable-next-line vue/valid-v-for - No suitable key is available -->
       <ParagraphNode v-if="child.type === 'paragraph'" :node="child" />
+      <!-- eslint-disable-next-line vue/valid-v-for - No suitable key is available -->
       <ListNode v-if="child.type === 'list'" :node="child" />
     </template>
   </div>
@@ -21,7 +23,7 @@ const { content } = defineProps<{ content: RichText }>()
 
   :global(p) {
     margin-block: 1em;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   :global(li) {

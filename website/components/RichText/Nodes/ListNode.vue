@@ -7,6 +7,7 @@ const { node } = defineProps<{ node: ListNode }>()
 
 <template>
   <component :is="node.tag === 'ol' ? 'ol' : 'ul'" :class="$style.list">
+    <!-- eslint-disable-next-line vue/valid-v-for - No suitable key is available -->
     <ListItemNode v-for="child in node.children" :node="child" />
   </component>
 </template>
