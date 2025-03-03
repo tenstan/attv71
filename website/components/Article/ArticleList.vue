@@ -8,5 +8,5 @@ const data = articles.value?.docs
 </script>
 
 <template>
-  <Article v-for="article in data" :article="article" />
+  <Article v-for="article in data" :key="article.id" :article="article" />
 </template>

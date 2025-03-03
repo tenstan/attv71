@@ -22,7 +22,7 @@ const getColumnWidth = (size: 'full' | 'half' | 'oneThird' | 'twoThirds') => {
 
 <template>
   <div :class="[$style.container, $style.grid]">
-    <div v-for="column in block.columns" :class="$style[getColumnWidth(column.size)]">
+    <div v-for="column in block.columns" :key="column.id" :class="$style[getColumnWidth(column.size)]">
       <RichText :content="column.richText" />
     </div>
   </div>

@@ -11,8 +11,8 @@ const { article } = defineProps<{ article: Article }>()
     <h2 :class="$style['article-title']">{{ article.title }}</h2>
     <div>
       <template v-for="block in article.layout">
-        <ContentBlock v-if="block.blockType === 'contentBlock'" :block="block" />
-        <MediaBlock v-else-if="block.blockType === 'mediaBlock'" :block="block" />
+        <ContentBlock v-if="block.blockType === 'contentBlock'" :key="`contentBlock-${block.id}`" :block="block" />
+        <MediaBlock v-else-if="block.blockType === 'mediaBlock'" :key="`mediaBlock-${block.id}`" :block="block" />
       </template>
     </div>
   </div>
